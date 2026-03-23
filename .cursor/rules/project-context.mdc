@@ -1,0 +1,11 @@
+---
+description: 戒色类 RN 纯前端项目边界与文档入口
+alwaysApply: true
+---
+
+# 项目上下文
+
+- React Native + TypeScript，纯前端；戒色/自我约束类产品，可参考 Quittr 品类，不复制其品牌与素材。
+- 需支持 iOS 与 Google Play 付费；H5 用于 Web 与 PR 预览。
+- 详细说明见仓库根目录 `AGENTS.md` 与 `docs/`。
+- 包管理使用 **pnpm**；TypeScript 使用 **strict**（见根 `tsconfig.json`）。
