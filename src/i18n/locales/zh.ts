@@ -4,4 +4,8 @@ export const zh = {
     subtitle: '在失控之前，先回到觉察。',
     cta: '现在开始',
   },
+  questionnaire: {
+    questionIndex: '问题 #{{index}}',
+    skip: '跳过',
+  },
 };

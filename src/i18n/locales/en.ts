@@ -4,4 +4,8 @@ export const en = {
     subtitle: 'Reflect before you relapse.',
     cta: 'Start now',
   },
+  questionnaire: {
+    questionIndex: 'Question #{{index}}',
+    skip: 'Skip',
+  },
 };
