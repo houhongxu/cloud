@@ -29,7 +29,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build static web preview
-        run: pnpm web:build
+        run: pnpm exec expo export --platform web --base-url /cloud/pr-${{ github.event.pull_request.number }}/
 
       - name: Deploy preview to gh-pages/pr-${{ github.event.pull_request.number }}
         uses: peaceiris/actions-gh-pages@v4

@@ -29,7 +29,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build static web bundle
-        run: pnpm web:build
+        run: pnpm exec expo export --platform web --base-url /cloud/
 
       - name: Deploy main web to gh-pages root
         uses: peaceiris/actions-gh-pages@v4
