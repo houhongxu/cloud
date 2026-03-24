@@ -6,8 +6,9 @@ alwaysApply: false
 
 # TypeScript 与 React Native
 
-- **`compilerOptions.strict` 必须为 `true`**；禁止为省事关闭严格检查或大面积 `any`。
+- **`compilerOptions.strict` 必须为 `true`**；默认禁止 `any`。若因第三方类型定义问题必须使用，需添加简短注释说明原因。
 - 使用函数组件与 Hooks；避免在 JSX 中嵌套过深，抽子组件或 hooks。
 - RN 样式对象键名使用 **camelCase**；Web/H5 侧 CSS 类名使用 **kebab-case**。
 - 平台差异用 `Platform.select`、`*.{native,web}.ts` 或项目既定模式，避免在业务层散落硬编码平台判断。
 - 错误与用户可见文案需符合应用商店对健康类应用的表述要求，避免夸大疗效。
+- 功能改动必须补 `Jest` 单元测试，测试文件放在 `src/**/__tests__` 目录下，至少覆盖成功路径、失败路径和一个边界条件。

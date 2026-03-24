@@ -1,32 +1,41 @@
-# 工程约定
+# 工程约定（仅保留高频规则）
 
-## 包管理
+## 必须遵守
 
-- 必须使用 **pnpm**（`pnpm install`、`pnpm run test` 等）；CI 与文档示例与此一致。
+- 包管理器：统一使用 `pnpm`。
+- TypeScript：保持 `strict`，默认禁止 `any`；若因第三方类型缺陷必须使用，需添加简短注释说明原因与后续修复方向。
+- 风格工具：以 ESLint/Prettier 结果为准，不在文档中重复低价值格式规则。
 
-## 样式命名
+## 命名规则
 
-- **Web / H5 / CSS 类名**：使用 **kebab-case**（例：`habit-card-header`）。
-- **React Native `StyleSheet` 键名**：使用 **camelCase**（例：`habitCardHeader`），与 RN 惯例一致。
+- Web/H5/CSS 类名：kebab-case（如 `habit-card-header`）。
+- React Native `StyleSheet` key：camelCase（如 `habitCardHeader`）。
+- 文件与目录命名保持语义化，避免缩写歧义。
 
-## TypeScript
+## 代码组织
 
-- 新代码优先使用 `.ts` / `.tsx`；**根或应用级 `tsconfig` 须保持 `compilerOptions.strict: true`**（若使用 Expo 等模板的嵌套配置，继承链中不得关闭 strict）；避免 `any`；公共 API 需有明确类型导出。
+- 优先扁平目录与单一职责文件。
+- 共享逻辑下沉到可复用模块，避免在页面层复制业务分支。
+- 平台差异放在适配层，不要散落在核心业务代码中。
 
-## Lint 与格式化
+## 测试规范
 
-- 使用 **ESLint** + **Prettier** 统一风格，便于 AI 输出与代码审查一致；具体配置在工程初始化时加入并与 CI 对齐。
-
-## 目录与文件（实现阶段细化）
-
-- 按功能域（feature）或分层（`screens`、`components`、`domain`）组织；优先**扁平、职责单一**，降低检索成本（见 `06-ai-coding-rn.md`）。
-- 具体结构在首次代码提交时写入 `README` 或本文件。
+- 测试框架统一使用 `Jest`，仅保留单元测试。
+- 功能改动必须伴随单元测试改动（新增或更新）。
+- 测试文件目录统一为 `src/**/__tests__`。
+- 每组测试至少包含：成功路径、失败路径、边界条件。
+- 覆盖率门槛为 `70%`（lines、branches、functions、statements）。
+- 测试命名需表达行为与预期，不使用无语义名称。
+- 修复缺陷时需先补“可复现该缺陷”的测试，再提交修复实现。
 
 ## 国际化
 
-- 多语言时推荐 **i18next** + **react-i18next**，键与默认语言集中管理，避免硬编码散落；细节见 `06-ai-coding-rn.md`。
+- 推荐 `i18next` + `react-i18next`。
+- 禁止在组件中散落硬编码文案，统一走翻译键管理。
 
-## 与 Cursor 规则
+## 文档与规则优先级
 
-- 在 `.cursor/rules/*.mdc` 中固化 Tailwind、NativeWind、i18next、pnpm 等选型；可执行细节以规则为准。
-- 本文件为人读的总览，二者冲突时以**更严格的合规与产品约束**为准。
+1. 产品边界与合规约束（`AGENTS.md`、`docs/03-monetization.md`）
+2. 可执行规则（`.cursor/rules/*.mdc`）
+3. 本文档（工程通用约定）
+

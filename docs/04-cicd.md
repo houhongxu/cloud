@@ -1,43 +1,42 @@
-# AI 与 CI/CD（含 PR 预览 H5）
+# CI/CD 与 PR 预览（HOW 优先）
 
 ## 目标
 
-- **CI**：每次推送 / PR 自动安装依赖、类型检查、Lint、单元测试（有测试后）、构建检查。
-- **CD**：主分支构建可发布产物（TestFlight / Internal Testing 等由发布流程定义）。
-- **AI**：在流水线或 PR 评论中集成 AI 辅助（代码审查摘要、风险点提示），与团队选型的工具一致即可。
-- **PR 预览**：每个 PR 生成**可访问的 H5 预览 URL**，便于设计与产品验收，无需本地打包。
+- CI：每次 push/PR 自动执行安装、lint、typecheck、测试、构建检查。
+- CD：主分支具备可发布产物。
+- PR 预览：每个 PR 生成可访问的 H5 预览地址，支持产品与设计快速验收。
 
-## 推荐架构（可择一或组合）
+## 基线流程
 
-| 环节 | 常见做法 |
-|------|----------|
-| 托管 | GitHub Actions / GitLab CI / 其他与仓库同源的 CI。 |
-| H5 构建 | React Native Web / Expo Web 等产出静态资源。 |
-| PR 预览 | Vercel、Netlify、Cloudflare Pages、或 Expo EAS Web preview；关键是**按 commit/PR 部署预览**并回写评论。 |
-| AI | GitHub Copilot for PR、第三方 Code Review Bot、或自研 Action 调用模型 API；注意密钥与费用。 |
+1. PR 创建或更新触发 workflow。
+2. 使用 `pnpm install` 安装依赖。
+3. 运行质量门禁（lint/typecheck/test/build）。
+4. 构建 H5 预览并部署到临时环境。
+5. 将预览 URL 回写到 PR（评论或 checks）。
 
-## AI 使用边界
+## 关键约束
 
-- 不在日志中输出密钥、用户 PII、商店共享密钥。
-- AI 审查结果作为**辅助**，合并仍由人工批准。
-- 模型与供应商需符合公司数据出境与合规要求（若适用）。
+- 包管理命令统一使用 `pnpm`。
+- 预览环境使用独立配置，不连接生产分析与真实 IAP。
+- 失败优先暴露在 PR 阶段，不把风险延后到发布阶段。
+- H5 产物仅用于 PR 预览，不作为正式线上 Web 站点。
 
-## Cursor 与仓库规则
+## 测试门禁（必须）
 
-- 在 **`.cursor/rules/*.mdc`** 中写明 RN/TS/Tailwind/i18n 等选型，与 `docs/06-ai-coding-rn.md`、`AGENTS.md` 一致，减少代理幻觉与风格漂移。
-- 复杂逻辑可在实现处加**简短意图注释**，便于人机与 AI 后续修改时对齐（非替代测试与类型）。
+- 测试框架统一使用 `Jest`，且仅执行单元测试。
+- `test` 为必跑项，不允许在 CI 中跳过。
+- 新增或修改功能时，必须同时提交对应测试用例。
+- 测试文件统一放在 `src/**/__tests__` 目录下。
+- 测试至少覆盖成功路径、失败路径、一个边界条件；缺少任一项则视为不达标。
+- 覆盖率门槛为 `70%`（lines、branches、functions、statements 均需达到）。
+- PR 描述中需包含测试范围与执行结果摘要。
 
-## PR 预览 H5 流程（逻辑）
+## 与 AI 协作的关系
 
-1. PR 打开或更新 → 触发 workflow。  
-2. `pnpm install` → `pnpm run …` 执行 Web/H5 build。  
-3. 将产物部署到预览环境，URL 关联到 PR（或 commit）。  
-4. （可选）评论中附带 AI 生成的变更摘要与测试建议。  
+- 在 `.cursor/rules/*.mdc` 中固化与 CI 一致的检查规则，减少“本地通过、CI 失败”。
+- 对复杂流程使用简短意图注释，帮助后续自动化修改保持一致。
 
-## 与主应用的关系
+## 任务路由
 
-- 预览环境使用**独立**环境变量；不连接生产分析或真实 IAP。
-
-## 落地说明
-
-具体 Workflow YAML、预览平台账号与域名在工程初始化时追加；本文档为**规格与约定**，保持与 `AGENTS.md` 一致即可。
+- 工程命名与风格：看 `docs/05-conventions.md`
+- 技术分层与多端策略：看 `docs/02-tech-stack.md`
