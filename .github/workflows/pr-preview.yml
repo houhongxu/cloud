@@ -29,7 +29,11 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build static web preview
-        run: pnpm exec expo export --platform web --base-url /cloud/pr-${{ github.event.pull_request.number }}/
+        run: pnpm web:build
+
+      - name: Rewrite asset paths for PR preview
+        run: |
+          node -e "const fs=require('fs');const file='dist/index.html';const base='/cloud/pr-${{ github.event.pull_request.number }}/';let html=fs.readFileSync(file,'utf8');html=html.replace(/(href|src)=\\\"\\//g,(_,attr)=>attr+'=\\\"'+base);fs.writeFileSync(file,html);"
 
       - name: Deploy preview to gh-pages/pr-${{ github.event.pull_request.number }}
         uses: peaceiris/actions-gh-pages@v4

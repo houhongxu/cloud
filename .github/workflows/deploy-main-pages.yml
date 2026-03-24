@@ -29,7 +29,11 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build static web bundle
-        run: pnpm exec expo export --platform web --base-url /cloud/
+        run: pnpm web:build
+
+      - name: Rewrite asset paths for /cloud/
+        run: |
+          node -e "const fs=require('fs');const file='dist/index.html';let html=fs.readFileSync(file,'utf8');html=html.replace(/(href|src)=\\\"\\//g,(_,attr)=>attr+'=\\\"/cloud/');fs.writeFileSync(file,html);"
 
       - name: Deploy main web to gh-pages root
         uses: peaceiris/actions-gh-pages@v4
