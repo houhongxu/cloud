@@ -18,6 +18,14 @@
 - 共享逻辑下沉到可复用模块，避免在页面层复制业务分支。
 - 平台差异放在适配层，不要散落在核心业务代码中。
 
+## 路由与页面分组（必须）
+
+- 路由定义只放在 `src/navigation/**`（如 navigator、route type）；禁止在该目录放业务组件。
+- 路由页面壳只放在 `src/screens/**`，负责“路由参数 + 组装 feature”，避免承载复杂业务逻辑。
+- 功能组件放在 `src/features/<feature>/components/**`；同一 feature 的状态与交互逻辑优先内聚在 feature 目录。
+- 纯业务计算与数据结构放在 `src/lib/**`，不得写入 `src/navigation/**` 与 `src/screens/**`。
+- 单元测试统一放在 `src/**/__tests__/**`，与被测模块按功能就近组织。
+
 ## 测试规范
 
 - 测试框架统一使用 `Jest`，仅保留单元测试。

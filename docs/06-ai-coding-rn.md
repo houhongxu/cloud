@@ -8,6 +8,7 @@
 - 改动前先确认边界：纯前端、TS strict、平台差异分层。
 - 输出后对齐检查：lint、typecheck、Jest 单元测试。
 - 所有功能改动必须补测试；禁止“无测试提交功能代码”。
+- 新增代码前先判断落位：`navigation`（路由）/`screens`（页面壳）/`features`（业务组件）/`lib`（纯逻辑）。
 
 ## 推荐技术组合
 
@@ -29,6 +30,22 @@
 
 - `.cursor/rules/` 下按主题拆分（如 `testing.mdc`、`rn-style.mdc`、`i18n.mdc`）。
 - 使用 frontmatter `paths` 限定生效范围，降低无关规则干扰。
+
+## 目录落位速查（防放错）
+
+- `src/navigation/**`：仅路由图与类型定义，不放业务 UI 与业务状态逻辑。
+- `src/screens/**`：仅 route-level screen wrapper，调用对应 feature 组件。
+- `src/features/<feature>/components/**`：功能组件与交互实现。
+- `src/lib/**`：可复用纯函数与业务模型，不依赖 React 视图。
+- `src/**/__tests__/**`：单元测试文件，覆盖成功/失败/边界。
+
+当前阶段默认结构（仅问卷单页）：
+
+- `src/navigation/root-navigator.tsx` 注册页面；
+- `src/screens/questionnaire-screen.tsx` 作为页面壳；
+- `src/features/questionnaire/components/questionnaire-flow.tsx` 承载问卷交互。
+
+除非需求明确，不提前创建新的 screen 分组或 route 分组文件。
 
 ## 何时更新规则
 
