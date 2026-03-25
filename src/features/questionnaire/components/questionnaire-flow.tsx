@@ -24,6 +24,17 @@ export const QuestionnaireFlow = () => {
   const setAnswer = useQuestionnaireEntryStore((s) => s.setAnswer);
   const persistedAnswers = useQuestionnaireEntryStore((s) => s.answers);
 
+  const safeIndex = Math.min(currentIndex, Math.max(questions.length - 1, 0));
+  const currentQuestion = questions[safeIndex];
+  const progress = questions.length === 0 ? 0 : (safeIndex + 1) / questions.length;
+
+  const answers: QuestionnaireAnswerMap = useMemo(() => {
+    return {
+      ...buildInitialAnswers(questions),
+      ...persistedAnswers,
+    };
+  }, [questions, persistedAnswers]);
+
   useEffect(() => {
     if (questions.length === 0) return;
     const nextIndex = Math.min(currentIndex, questions.length - 1);
@@ -36,20 +47,9 @@ export const QuestionnaireFlow = () => {
     return null;
   }
 
-  const safeIndex = Math.min(currentIndex, questions.length - 1);
-  const currentQuestion = questions[safeIndex];
   if (!currentQuestion) {
     return null;
   }
-
-  const progress = (safeIndex + 1) / questions.length;
-
-  const answers: QuestionnaireAnswerMap = useMemo(() => {
-    return {
-      ...buildInitialAnswers(questions),
-      ...persistedAnswers,
-    };
-  }, [questions, persistedAnswers]);
 
   const onToggleLanguage = (): void => {
     const nextLanguage = i18n.language.startsWith('zh') ? 'en' : 'zh';
