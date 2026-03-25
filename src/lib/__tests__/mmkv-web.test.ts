@@ -2,8 +2,11 @@ import { createMmkvStorage } from '../storage/mmkv.web';
 
 describe('createMmkvStorage (web)', () => {
   afterEach(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    delete (globalThis as any).window;
+    Object.defineProperty(globalThis, 'window', {
+      value: undefined,
+      writable: true,
+      configurable: true,
+    });
   });
 
   it('falls back to memory storage when window is missing', () => {
@@ -22,8 +25,11 @@ describe('createMmkvStorage (web)', () => {
       removeItem: jest.fn(),
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (globalThis as any).window = { localStorage };
+    Object.defineProperty(globalThis, 'window', {
+      value: { localStorage },
+      writable: true,
+      configurable: true,
+    });
 
     const storage = createMmkvStorage();
     expect(storage.getString('k')).toBe('v');
@@ -48,8 +54,11 @@ describe('createMmkvStorage (web)', () => {
       }),
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (globalThis as any).window = { localStorage };
+    Object.defineProperty(globalThis, 'window', {
+      value: { localStorage },
+      writable: true,
+      configurable: true,
+    });
 
     const storage = createMmkvStorage();
     expect(storage.getString('k')).toBeUndefined();

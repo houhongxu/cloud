@@ -20,13 +20,13 @@ type LocalizedQuestionSeed = {
     en: string;
     zh: string;
   };
-  options: Array<{
+  options: {
     id: string;
     label: {
       en: string;
       zh: string;
     };
-  }>;
+  }[];
 };
 
 const QUESTION_SEED: LocalizedQuestionSeed[] = [
