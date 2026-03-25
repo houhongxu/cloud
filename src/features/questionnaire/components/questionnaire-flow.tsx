@@ -10,7 +10,9 @@ import {
   getQuestionnaireQuestions,
   type QuestionnaireAnswerMap,
 } from '../../../lib/questionnaire';
+import { isLastQuestionIndex } from '../../../lib/questionnaire-progress';
 import { useQuestionnaireEntryStore } from '../../../lib/questionnaire-entry';
+import { CalculatingScreen } from './calculating-screen';
 import { LanguagePickerModal } from './language-picker-modal';
 import { WelcomeSequence } from './welcome-sequence';
 
@@ -31,6 +33,7 @@ export const QuestionnaireFlow = () => {
   const currentQuestion = questions[safeIndex];
   const progress = questions.length === 0 ? 0 : (safeIndex + 1) / questions.length;
   const [isLanguageModalVisible, setLanguageModalVisible] = useState(false);
+  const [isCalculating, setCalculating] = useState(false);
 
   const answers: QuestionnaireAnswerMap = useMemo(() => {
     return {
@@ -67,7 +70,7 @@ export const QuestionnaireFlow = () => {
 
   const onSelectOption = (optionId: string): void => {
     setAnswer(currentQuestion.id, optionId);
-    const isLastQuestion = safeIndex >= questions.length - 1;
+    const isLastQuestion = isLastQuestionIndex(safeIndex, questions.length);
     if (!isLastQuestion) {
       setCurrentIndex(safeIndex + 1);
     } else {
@@ -76,12 +79,11 @@ export const QuestionnaireFlow = () => {
   };
 
   const onSkip = (): void => {
-    const isLastQuestion = safeIndex >= questions.length - 1;
-    if (!isLastQuestion) {
-      setCurrentIndex(safeIndex + 1);
-    } else {
-      console.log('[questionnaire-entry]', { step, currentIndex: safeIndex, answers });
-    }
+    setCurrentIndex(safeIndex + 1);
+  };
+
+  const onCompleteQuiz = (): void => {
+    setCalculating(true);
   };
 
   if (step === 1) {
@@ -101,6 +103,12 @@ export const QuestionnaireFlow = () => {
         selected={selectedLanguage}
         onClose={() => setLanguageModalVisible(false)}
         onSelect={onSelectLanguage}
+      />
+      <CalculatingScreen
+        visible={isCalculating}
+        onDone={() => {
+          console.log('[questionnaire-complete]', { step, currentIndex: safeIndex, answers });
+        }}
       />
       <View style={styles.contentWrapper}>
         <View style={styles.topBar}>
@@ -141,9 +149,15 @@ export const QuestionnaireFlow = () => {
         </View>
 
         <View style={styles.footer}>
-          <TouchableOpacity style={styles.skipButton} onPress={onSkip}>
-            <Text style={styles.skipText}>{t('questionnaire.skip')}</Text>
-          </TouchableOpacity>
+          {isLastQuestionIndex(safeIndex, questions.length) ? (
+            <TouchableOpacity style={styles.completeButton} onPress={onCompleteQuiz} activeOpacity={0.92}>
+              <Text style={styles.completeButtonText}>Complete Quiz</Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity style={styles.skipButton} onPress={onSkip}>
+              <Text style={styles.skipText}>{t('questionnaire.skip')}</Text>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     </LinearGradient>
@@ -273,5 +287,25 @@ const styles = StyleSheet.create({
     lineHeight: 36,
     textAlign: 'center',
     fontWeight: '500',
+  },
+  completeButton: {
+    width: '100%',
+    maxWidth: 420,
+    height: 64,
+    borderRadius: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#ffffff',
+    shadowColor: '#000000',
+    shadowOpacity: 0.18,
+    shadowRadius: 18,
+    shadowOffset: { width: 0, height: 12 },
+    elevation: 8,
+  },
+  completeButtonText: {
+    color: '#0b1b4d',
+    fontSize: 20,
+    lineHeight: 24,
+    fontWeight: '800',
   },
 });
