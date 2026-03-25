@@ -1,20 +1,23 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
+import { normalizeLanguage, setStoredLanguage, type SupportedLanguage } from '../../../lib/i18n-language';
 import {
   buildInitialAnswers,
   getQuestionnaireQuestions,
   type QuestionnaireAnswerMap,
 } from '../../../lib/questionnaire';
 import { useQuestionnaireEntryStore } from '../../../lib/questionnaire-entry';
+import { LanguagePickerModal } from './language-picker-modal';
 import { WelcomeSequence } from './welcome-sequence';
 
 export const QuestionnaireFlow = () => {
   const { t, i18n } = useTranslation();
   const language = i18n.language;
+  const selectedLanguage = normalizeLanguage(language);
   const questions = useMemo(() => getQuestionnaireQuestions(language), [language]);
   const step = useQuestionnaireEntryStore((s) => s.step);
   const currentIndex = useQuestionnaireEntryStore((s) => s.currentIndex);
@@ -27,6 +30,7 @@ export const QuestionnaireFlow = () => {
   const safeIndex = Math.min(currentIndex, Math.max(questions.length - 1, 0));
   const currentQuestion = questions[safeIndex];
   const progress = questions.length === 0 ? 0 : (safeIndex + 1) / questions.length;
+  const [isLanguageModalVisible, setLanguageModalVisible] = useState(false);
 
   const answers: QuestionnaireAnswerMap = useMemo(() => {
     return {
@@ -51,9 +55,14 @@ export const QuestionnaireFlow = () => {
     return null;
   }
 
-  const onToggleLanguage = (): void => {
-    const nextLanguage = i18n.language.startsWith('zh') ? 'en' : 'zh';
+  const onOpenLanguageModal = (): void => {
+    setLanguageModalVisible(true);
+  };
+
+  const onSelectLanguage = (nextLanguage: SupportedLanguage): void => {
+    setStoredLanguage(nextLanguage);
     void i18n.changeLanguage(nextLanguage);
+    setLanguageModalVisible(false);
   };
 
   const onSelectOption = (optionId: string): void => {
@@ -87,6 +96,12 @@ export const QuestionnaireFlow = () => {
   return (
     <LinearGradient colors={['#06123a', '#07113f', '#050b2b']} style={styles.container}>
       <StatusBar style="light" />
+      <LanguagePickerModal
+        visible={isLanguageModalVisible}
+        selected={selectedLanguage}
+        onClose={() => setLanguageModalVisible(false)}
+        onSelect={onSelectLanguage}
+      />
       <View style={styles.contentWrapper}>
         <View style={styles.topBar}>
           <TouchableOpacity style={styles.backButton} onPress={goBackQuestion}>
@@ -96,8 +111,10 @@ export const QuestionnaireFlow = () => {
             <View style={[styles.progressFill, { flex: progress }]} />
             <View style={{ flex: 1 - progress }} />
           </View>
-          <TouchableOpacity style={styles.langButton} onPress={onToggleLanguage}>
-            <Text style={styles.langButtonText}>{language.startsWith('zh') ? '中文' : 'EN'}</Text>
+          <TouchableOpacity style={styles.langButton} onPress={onOpenLanguageModal} activeOpacity={0.9}>
+            <Text style={styles.langButtonText}>
+              {selectedLanguage === 'zh' ? '🇨🇳 中文' : '🇺🇸 EN'}
+            </Text>
           </TouchableOpacity>
         </View>
 
