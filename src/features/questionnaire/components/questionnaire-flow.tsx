@@ -1,74 +1,96 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import {
   buildInitialAnswers,
   getQuestionnaireQuestions,
-  saveSingleChoice,
   type QuestionnaireAnswerMap,
 } from '../../../lib/questionnaire';
+import { useQuestionnaireEntryStore } from '../../../lib/questionnaire-entry';
+import { WelcomeSequence } from './welcome-sequence';
 
 export const QuestionnaireFlow = () => {
   const { t, i18n } = useTranslation();
   const language = i18n.language;
   const questions = useMemo(() => getQuestionnaireQuestions(language), [language]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [answers, setAnswers] = useState<QuestionnaireAnswerMap>(() => buildInitialAnswers(questions));
+  const step = useQuestionnaireEntryStore((s) => s.step);
+  const currentIndex = useQuestionnaireEntryStore((s) => s.currentIndex);
+  const setCurrentIndex = useQuestionnaireEntryStore((s) => s.setCurrentIndex);
+  const goBackQuestion = useQuestionnaireEntryStore((s) => s.goBackQuestion);
+  const completeWelcome = useQuestionnaireEntryStore((s) => s.completeWelcome);
+  const setAnswer = useQuestionnaireEntryStore((s) => s.setAnswer);
+  const persistedAnswers = useQuestionnaireEntryStore((s) => s.answers);
+
+  const safeIndex = Math.min(currentIndex, Math.max(questions.length - 1, 0));
+  const currentQuestion = questions[safeIndex];
+  const progress = questions.length === 0 ? 0 : (safeIndex + 1) / questions.length;
+
+  const answers: QuestionnaireAnswerMap = useMemo(() => {
+    return {
+      ...buildInitialAnswers(questions),
+      ...persistedAnswers,
+    };
+  }, [questions, persistedAnswers]);
 
   useEffect(() => {
-    setCurrentIndex(0);
-    setAnswers(buildInitialAnswers(questions));
-  }, [questions]);
+    if (questions.length === 0) return;
+    const nextIndex = Math.min(currentIndex, questions.length - 1);
+    if (nextIndex !== currentIndex) {
+      setCurrentIndex(nextIndex);
+    }
+  }, [currentIndex, questions, setCurrentIndex]);
 
   if (questions.length === 0) {
     return null;
   }
 
-  const currentQuestion = questions[Math.min(currentIndex, questions.length - 1)];
   if (!currentQuestion) {
     return null;
   }
-
-  const progress = (currentIndex + 1) / questions.length;
 
   const onToggleLanguage = (): void => {
     const nextLanguage = i18n.language.startsWith('zh') ? 'en' : 'zh';
     void i18n.changeLanguage(nextLanguage);
   };
 
-  const moveNext = (nextAnswers: QuestionnaireAnswerMap): void => {
-    const isLastQuestion = currentIndex >= questions.length - 1;
-    if (isLastQuestion) {
-      console.log('[questionnaire-submit]', nextAnswers);
-      return;
-    }
-
-    setCurrentIndex((prev) => prev + 1);
-  };
-
   const onSelectOption = (optionId: string): void => {
-    const nextAnswers = saveSingleChoice(answers, currentQuestion.id, optionId);
-    setAnswers(nextAnswers);
-    moveNext(nextAnswers);
+    setAnswer(currentQuestion.id, optionId);
+    const isLastQuestion = safeIndex >= questions.length - 1;
+    if (!isLastQuestion) {
+      setCurrentIndex(safeIndex + 1);
+    } else {
+      console.log('[questionnaire-entry]', { step, currentIndex: safeIndex, answers });
+    }
   };
 
   const onSkip = (): void => {
-    moveNext(answers);
+    const isLastQuestion = safeIndex >= questions.length - 1;
+    if (!isLastQuestion) {
+      setCurrentIndex(safeIndex + 1);
+    } else {
+      console.log('[questionnaire-entry]', { step, currentIndex: safeIndex, answers });
+    }
   };
+
+  if (step === 1) {
+    return (
+      <>
+        <StatusBar style="light" />
+        <WelcomeSequence onComplete={completeWelcome} />
+      </>
+    );
+  }
 
   return (
     <LinearGradient colors={['#06123a', '#07113f', '#050b2b']} style={styles.container}>
       <StatusBar style="light" />
       <View style={styles.contentWrapper}>
         <View style={styles.topBar}>
-          <TouchableOpacity
-            style={styles.backButton}
-            onPress={() => setCurrentIndex((prev) => (prev > 0 ? prev - 1 : prev))}
-          >
-            <Text style={styles.backButtonText}>{"<"}</Text>
+          <TouchableOpacity style={styles.backButton} onPress={goBackQuestion}>
+            <Text style={styles.backButtonText}>{'<'}</Text>
           </TouchableOpacity>
           <View style={styles.progressTrack}>
             <View style={[styles.progressFill, { flex: progress }]} />
@@ -81,7 +103,7 @@ export const QuestionnaireFlow = () => {
 
         <View style={styles.questionSection}>
           <Text style={styles.questionIndex}>
-            {t('questionnaire.questionIndex', { index: currentIndex + 1 })}
+            {t('questionnaire.questionIndex', { index: safeIndex + 1 })}
           </Text>
           <Text style={styles.questionTitle}>{currentQuestion.title}</Text>
         </View>
