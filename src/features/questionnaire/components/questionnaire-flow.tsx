@@ -139,7 +139,7 @@ export const QuestionnaireFlow = () => {
   if (step === 6) {
     return (
       <View style={styles.root}>
-        <QuestionnaireStepBenefit onContinue={() => setStep(7)} />
+        <QuestionnaireStepBenefit onBack={() => setStep(5)} onContinue={() => setStep(7)} />
         {shouldShowFloatingBack ? (
           <TouchableOpacity style={styles.floatingBackButton} onPress={onFloatingBack} activeOpacity={0.92}>
             <Text style={styles.floatingBackText}>{'<'}</Text>

@@ -90,5 +90,43 @@ export const zh = {
         body: '觉察是第一步。通过小而稳定的改变，降低触发、重建专注，让大脑重新对健康回报产生反应。',
       },
     },
+  benefits: {
+    title: '重塑收益',
+    verified: '✓',
+    ctaSeeProgress: '查看进度图',
+    ctaContinue: '继续',
+    avatars: {
+      huberman: 'AH',
+      bartlett: 'SB',
+      connor: 'C',
+      jack: 'J',
+    },
+    quotes: {
+      huberman: {
+        name: 'Andrew Huberman, Ph.D',
+        headline: '让生活发生显著改善。',
+        body: '通过暂时远离高刺激内容，逐步重置多巴胺平衡，你的动力、情绪稳定性与日常愉悦感都可能明显提升。',
+      },
+      bartlett: {
+        name: 'Steven Bartlett',
+        headline: '色情并没有“好处”。',
+        body: '色情并不具备教育意义，它更像一门生意：让人更空虚、更上瘾，却从你的注意力与时间里获利。',
+      },
+      connor: {
+        name: 'Connor',
+        headline: '戒掉后，我对小事的心态变了。',
+        body: '以前我被困在循环里，什么都觉得无聊。停下来后，我重新在意日常的小胜利，也一点点找回前进的动力。',
+      },
+      jack: {
+        name: 'Jack',
+        headline: '专注力回来了。',
+        body: '重置一段时间后，我明显更专注、也更少焦虑。它不是一夜发生的，但趋势在变好。',
+      },
+    },
+    progress: {
+      kicker: 'Porn Recovery',
+      imagePlaceholder: '进度图占位',
+      caption: 'CLOUD 帮你更快摆脱色情内容，而不仅仅靠意志力。',
+    },
   },
 };
