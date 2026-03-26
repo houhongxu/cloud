@@ -48,4 +48,20 @@ export const zh = {
     todoGoal: '第 7 步（目标）暂未实现。',
     ctaContinue: '继续',
   },
+  symptoms: {
+    info: '过度色情内容使用可能对心理状态造成负面影响。',
+    instructions: '请选择下列相关表现（可多选）：',
+    validation: '请至少选择 1 项后继续。',
+    cta: '重启大脑',
+    categories: {
+      mental: '心理',
+    },
+    items: {
+      unmotivated: '缺乏动力',
+      lackOfAmbition: '缺乏追求目标的意愿',
+      difficultyConcentrating: '注意力难以集中',
+      brainFog: '记忆力下降或“脑雾”',
+      generalAnxiety: '普遍焦虑',
+    },
+  },
 };

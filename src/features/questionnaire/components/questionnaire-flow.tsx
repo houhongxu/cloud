@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { normalizeLanguage, setStoredLanguage, type SupportedLanguage } from '../../../lib/i18n-language';
 import {
@@ -82,34 +83,86 @@ export const QuestionnaireFlow = () => {
   };
 
   const languageLabel = selectedLanguage === 'zh' ? '🇨🇳 中文' : '🇺🇸 EN';
+  const shouldShowFloatingBack = step >= 3;
+
+  const onFloatingBack = (): void => {
+    if (step === 7) return setStep(6);
+    if (step === 6) return setStep(5);
+    if (step === 5) return setStep(4);
+    if (step === 4) return setStep(3);
+    if (step === 3) return setStep(2);
+  };
 
   if (questions.length === 0) {
     return null;
   }
 
   if (step === 3) {
-    return <QuestionnaireStepAnalysis onCheckSymptoms={() => setStep(4)} />;
+    return (
+      <View style={styles.root}>
+        <QuestionnaireStepAnalysis onCheckSymptoms={() => setStep(4)} />
+        {shouldShowFloatingBack ? (
+          <TouchableOpacity style={styles.floatingBackButton} onPress={onFloatingBack} activeOpacity={0.92}>
+            <Text style={styles.floatingBackText}>{'<'}</Text>
+          </TouchableOpacity>
+        ) : null}
+      </View>
+    );
   }
 
   if (step === 4) {
-    return <QuestionnaireStepSymptom onContinue={() => setStep(5)} />;
+    return (
+      <View style={styles.root}>
+        <QuestionnaireStepSymptom onBack={() => setStep(3)} onContinue={() => setStep(5)} />
+        {shouldShowFloatingBack ? (
+          <TouchableOpacity style={styles.floatingBackButton} onPress={onFloatingBack} activeOpacity={0.92}>
+            <Text style={styles.floatingBackText}>{'<'}</Text>
+          </TouchableOpacity>
+        ) : null}
+      </View>
+    );
   }
 
   if (step === 5) {
-    return <QuestionnaireStepHarm onContinue={() => setStep(6)} />;
+    return (
+      <View style={styles.root}>
+        <QuestionnaireStepHarm onContinue={() => setStep(6)} />
+        {shouldShowFloatingBack ? (
+          <TouchableOpacity style={styles.floatingBackButton} onPress={onFloatingBack} activeOpacity={0.92}>
+            <Text style={styles.floatingBackText}>{'<'}</Text>
+          </TouchableOpacity>
+        ) : null}
+      </View>
+    );
   }
 
   if (step === 6) {
-    return <QuestionnaireStepBenefit onContinue={() => setStep(7)} />;
+    return (
+      <View style={styles.root}>
+        <QuestionnaireStepBenefit onContinue={() => setStep(7)} />
+        {shouldShowFloatingBack ? (
+          <TouchableOpacity style={styles.floatingBackButton} onPress={onFloatingBack} activeOpacity={0.92}>
+            <Text style={styles.floatingBackText}>{'<'}</Text>
+          </TouchableOpacity>
+        ) : null}
+      </View>
+    );
   }
 
   if (step === 7) {
     return (
-      <QuestionnaireStepGoal
-        onContinue={() => {
-          console.log('[questionnaire-goal-continue]', { step, currentIndex: safeIndex, answers });
-        }}
-      />
+      <View style={styles.root}>
+        <QuestionnaireStepGoal
+          onContinue={() => {
+            console.log('[questionnaire-goal-continue]', { step, currentIndex: safeIndex, answers });
+          }}
+        />
+        {shouldShowFloatingBack ? (
+          <TouchableOpacity style={styles.floatingBackButton} onPress={onFloatingBack} activeOpacity={0.92}>
+            <Text style={styles.floatingBackText}>{'<'}</Text>
+          </TouchableOpacity>
+        ) : null}
+      </View>
     );
   }
 
@@ -144,3 +197,28 @@ export const QuestionnaireFlow = () => {
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
+  floatingBackButton: {
+    position: 'absolute',
+    left: 18,
+    bottom: 18,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(11, 24, 75, 0.7)',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.18)',
+  },
+  floatingBackText: {
+    color: '#ffffff',
+    fontSize: 22,
+    marginTop: -2,
+    fontWeight: '900',
+  },
+});
