@@ -50,7 +50,7 @@ jobs:
             const prNumber = context.payload.pull_request.number;
             const owner = context.repo.owner;
             const repo = context.repo.repo;
-            const url = `https://${owner}.github.io/${repo}/pr-${prNumber}/`;
+            const url = `https://${owner}.github.io/${repo}/pr-${prNumber}/?v=${context.sha}`;
             const marker = '<!-- pr-preview-url -->';
             const body = `${marker}\nH5 预览地址：${url}`;
 
