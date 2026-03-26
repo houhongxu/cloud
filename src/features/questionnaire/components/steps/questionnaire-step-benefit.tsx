@@ -1,10 +1,8 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { StatusBar } from 'expo-status-bar';
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  NativeScrollEvent,
-  NativeSyntheticEvent,
   ScrollView,
   StyleSheet,
   Text,
@@ -14,7 +12,6 @@ import {
 } from 'react-native';
 
 import {
-  benefitScreenIndexFromOffset,
   getDefaultBenefitScreens,
   type BenefitQuote,
 } from '../../../../lib/questionnaire-benefits';
@@ -29,40 +26,15 @@ export const QuestionnaireStepBenefit = ({ onBack, onContinue }: QuestionnaireSt
   const screens = useMemo(() => getDefaultBenefitScreens(), []);
   const quotesScreen = screens.find((s): s is Extract<(typeof screens)[number], { id: 'quotes' }> => s.id === 'quotes');
   const quoteItems: readonly BenefitQuote[] = quotesScreen ? quotesScreen.items : [];
-  const scrollRef = useRef<ScrollView | null>(null);
-  const { height, width } = useWindowDimensions();
-  const pageHeight = Math.max(1, height);
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const syncIndexFromEvent = useCallback(
-    (e: NativeSyntheticEvent<NativeScrollEvent>): void => {
-      const next = benefitScreenIndexFromOffset(e.nativeEvent.contentOffset.y, pageHeight, screens.length);
-      setActiveIndex(next);
-    },
-    [pageHeight, screens.length],
-  );
-
-  const onPressSeeProgress = (): void => {
-    setActiveIndex(1);
-    scrollRef.current?.scrollTo({ y: pageHeight, animated: true });
-  };
+  const { width } = useWindowDimensions();
+  const [screen, setScreen] = useState<'quotes' | 'progress'>('quotes');
 
   return (
     <LinearGradient colors={['#020617', '#07112a', '#020617']} style={styles.container}>
       <StatusBar style="light" />
 
-      <ScrollView
-        ref={(node) => {
-          scrollRef.current = node;
-        }}
-        pagingEnabled
-        showsVerticalScrollIndicator={false}
-        onScroll={syncIndexFromEvent}
-        onScrollEndDrag={syncIndexFromEvent}
-        onMomentumScrollEnd={syncIndexFromEvent}
-        scrollEventThrottle={16}
-      >
-        <View style={[styles.screen, { height: pageHeight, width }]}>
+      {screen === 'quotes' ? (
+        <View style={[styles.screen, { width }]}>
           <View style={styles.header}>
             <TouchableOpacity
               style={styles.headerBack}
@@ -77,41 +49,50 @@ export const QuestionnaireStepBenefit = ({ onBack, onContinue }: QuestionnaireSt
             <View style={styles.headerRightSpacer} />
           </View>
 
-          <View style={styles.list}>
-            {quoteItems.map((item) => (
-              <View key={item.id} style={styles.quoteRow}>
-                <View style={styles.avatar}>
-                  <Text style={styles.avatarText}>{t(`benefits.avatars.${item.id}`)}</Text>
-                </View>
-
-                <View style={styles.quoteCard}>
-                  <View style={styles.quoteHeader}>
-                    <Text style={styles.quoteName}>{t(item.nameKey)}</Text>
-                    <View style={styles.verifiedBadge}>
-                      <Text style={styles.verifiedText}>{t('benefits.verified')}</Text>
-                    </View>
+          <ScrollView
+            style={styles.scroll}
+            contentContainerStyle={styles.scrollContent}
+            showsVerticalScrollIndicator={false}
+          >
+            <View style={styles.list}>
+              {quoteItems.map((item) => (
+                <View key={item.id} style={styles.quoteRow}>
+                  <View style={styles.avatar}>
+                    <Text style={styles.avatarText}>{t(`benefits.avatars.${item.id}`)}</Text>
                   </View>
-                  <Text style={styles.quoteHeadline}>{t(item.headlineKey)}</Text>
-                  <Text style={styles.quoteBody}>{t(item.bodyKey)}</Text>
+
+                  <View style={styles.quoteCard}>
+                    <View style={styles.quoteHeader}>
+                      <Text style={styles.quoteName}>{t(item.nameKey)}</Text>
+                      <View style={styles.verifiedBadge}>
+                        <Text style={styles.verifiedText}>{t('benefits.verified')}</Text>
+                      </View>
+                    </View>
+                    <Text style={styles.quoteHeadline}>{t(item.headlineKey)}</Text>
+                    <Text style={styles.quoteBody}>{t(item.bodyKey)}</Text>
+                  </View>
                 </View>
-              </View>
-            ))}
-          </View>
+              ))}
+            </View>
+          </ScrollView>
 
           <View style={styles.bottomCta}>
-            <TouchableOpacity style={styles.primaryButton} onPress={onPressSeeProgress} activeOpacity={0.92}>
+            <TouchableOpacity
+              style={styles.primaryButton}
+              onPress={() => setScreen('progress')}
+              activeOpacity={0.92}
+            >
               <Text style={styles.primaryButtonText}>{t('benefits.ctaSeeProgress')}</Text>
             </TouchableOpacity>
           </View>
         </View>
-
-        <View style={[styles.screen, { height: pageHeight, width }]}>
+      ) : (
+        <View style={[styles.screen, { width }]}>
           <View style={styles.header}>
             <TouchableOpacity
               style={styles.headerBack}
               onPress={() => {
-                setActiveIndex(0);
-                scrollRef.current?.scrollTo({ y: 0, animated: true });
+                setScreen('quotes');
               }}
               activeOpacity={0.92}
               accessibilityRole="button"
@@ -122,16 +103,22 @@ export const QuestionnaireStepBenefit = ({ onBack, onContinue }: QuestionnaireSt
             <View style={styles.headerRightSpacer} />
           </View>
 
-          <Text style={styles.bigTitle}>{t('benefits.title')}</Text>
+          <ScrollView
+            style={styles.scroll}
+            contentContainerStyle={styles.scrollContent}
+            showsVerticalScrollIndicator={false}
+          >
+            <Text style={styles.bigTitle}>{t('benefits.title')}</Text>
 
-          <View style={styles.chartFrame}>
-            <View style={styles.chartInner}>
-              <Text style={styles.chartTitle}>{t('benefits.progress.kicker')}</Text>
-              <Text style={styles.chartPlaceholder}>{t('benefits.progress.imagePlaceholder')}</Text>
+            <View style={styles.chartFrame}>
+              <View style={styles.chartInner}>
+                <Text style={styles.chartTitle}>{t('benefits.progress.kicker')}</Text>
+                <Text style={styles.chartPlaceholder}>{t('benefits.progress.imagePlaceholder')}</Text>
+              </View>
             </View>
-          </View>
 
-          <Text style={styles.caption}>{t('benefits.progress.caption')}</Text>
+            <Text style={styles.caption}>{t('benefits.progress.caption')}</Text>
+          </ScrollView>
 
           <View style={styles.bottomCta}>
             <TouchableOpacity style={styles.primaryButton} onPress={onContinue} activeOpacity={0.92}>
@@ -139,12 +126,7 @@ export const QuestionnaireStepBenefit = ({ onBack, onContinue }: QuestionnaireSt
             </TouchableOpacity>
           </View>
         </View>
-      </ScrollView>
-
-      <View style={styles.pageDots} pointerEvents="none">
-        <View style={[styles.pageDot, activeIndex === 0 ? styles.pageDotActive : styles.pageDotInactive]} />
-        <View style={[styles.pageDot, activeIndex === 1 ? styles.pageDotActive : styles.pageDotInactive]} />
-      </View>
+      )}
     </LinearGradient>
   );
 };
@@ -154,6 +136,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   screen: {
+    flex: 1,
     paddingTop: 52,
     paddingHorizontal: 18,
     paddingBottom: 20,
@@ -187,8 +170,13 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
   },
-  list: {
+  scroll: {
     flex: 1,
+  },
+  scrollContent: {
+    paddingBottom: 120,
+  },
+  list: {
     gap: 14,
     paddingTop: 6,
   },
@@ -260,8 +248,11 @@ const styles = StyleSheet.create({
     lineHeight: 19,
   },
   bottomCta: {
-    paddingTop: 14,
-    paddingBottom: 6,
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 22,
+    paddingHorizontal: 18,
     alignItems: 'center',
   },
   primaryButton: {
@@ -278,26 +269,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '900',
     letterSpacing: 0.2,
-  },
-  pageDots: {
-    position: 'absolute',
-    bottom: 90,
-    left: 0,
-    right: 0,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    gap: 10,
-  },
-  pageDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-  },
-  pageDotActive: {
-    backgroundColor: 'rgba(255,255,255,0.95)',
-  },
-  pageDotInactive: {
-    backgroundColor: 'rgba(255,255,255,0.28)',
   },
   bigTitle: {
     marginTop: 6,
