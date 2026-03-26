@@ -42,10 +42,12 @@ export const zh = {
     harm: '潜在危害',
     benefit: '可能收益',
     goal: '目标',
+    commitment: '承诺',
     todoSymptom: '第 4 步（症状问卷）暂未实现。',
     todoHarm: '第 5 步（危害）暂未实现。',
     todoBenefit: '第 6 步（收益）暂未实现。',
     todoGoal: '第 7 步（目标）暂未实现。',
+    todoCommitment: '第 8 步（承诺）暂未实现。',
     ctaContinue: '继续',
   },
   symptoms: {
@@ -128,6 +130,19 @@ export const zh = {
       kicker: 'Porn Recovery',
       imagePlaceholder: '进度图占位',
       caption: 'CLOUD 帮你更快摆脱色情内容，而不仅仅靠意志力。',
+    },
+  },
+  goals: {
+    title: '选择你的目标',
+    subtitle: '选择你希望在重启期间追踪的目标。',
+    cta: '追踪这些目标',
+    validation: '请至少选择 1 个目标后继续。',
+    items: {
+      strongerRelationships: '更好的亲密与人际关系',
+      improvedSelfConfidence: '提升自信',
+      improvedMood: '情绪更稳定、更快乐',
+      moreEnergy: '更有精力与动力',
+      improvedSelfControl: '更强的自控力',
     },
   },
 };

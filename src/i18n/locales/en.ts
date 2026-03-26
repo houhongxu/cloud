@@ -42,10 +42,12 @@ export const en = {
     harm: 'Harms',
     benefit: 'Benefits',
     goal: 'Goal',
+    commitment: 'Commitment',
     todoSymptom: 'Step 4 (symptom questionnaire) is not implemented yet.',
     todoHarm: 'Step 5 (harms) is not implemented yet.',
     todoBenefit: 'Step 6 (benefits) is not implemented yet.',
     todoGoal: 'Step 7 (goal) is not implemented yet.',
+    todoCommitment: 'Step 8 (commitment) is not implemented yet.',
     ctaContinue: 'Continue',
   },
   symptoms: {
@@ -128,6 +130,19 @@ export const en = {
       kicker: 'Porn Recovery',
       imagePlaceholder: 'Chart image placeholder',
       caption: 'CLOUD helps you quit porn faster than willpower alone.',
+    },
+  },
+  goals: {
+    title: 'Choose your goals',
+    subtitle: 'Select the goals you wish to track during your reboot.',
+    cta: 'Track these goals',
+    validation: 'Please select at least one goal to continue.',
+    items: {
+      strongerRelationships: 'Stronger relationships',
+      improvedSelfConfidence: 'Improved self-confidence',
+      improvedMood: 'Improved mood and happiness',
+      moreEnergy: 'More energy and motivation',
+      improvedSelfControl: 'Improved self-control',
     },
   },
 };
