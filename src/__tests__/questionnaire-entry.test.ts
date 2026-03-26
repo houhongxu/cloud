@@ -80,7 +80,7 @@ describe('questionnaire entry store', () => {
     expect(getQuestionnaireEntry().step).toBe(3);
   });
 
-  it('supports steps 4-8 as boundary cases', () => {
+  it('supports steps 4-9 as boundary cases', () => {
     useQuestionnaireEntryStore.getState().setStep(4);
     expect(getQuestionnaireEntry().step).toBe(4);
     useQuestionnaireEntryStore.getState().setStep(5);
@@ -91,5 +91,7 @@ describe('questionnaire entry store', () => {
     expect(getQuestionnaireEntry().step).toBe(7);
     useQuestionnaireEntryStore.getState().setStep(8);
     expect(getQuestionnaireEntry().step).toBe(8);
+    useQuestionnaireEntryStore.getState().setStep(9);
+    expect(getQuestionnaireEntry().step).toBe(9);
   });
 });
