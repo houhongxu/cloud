@@ -90,6 +90,7 @@ export const en = {
         body: 'Awareness is the first step. Small, consistent changes can reduce triggers, rebuild focus, and help your brain respond to healthy rewards again.',
       },
     },
+  },
   benefits: {
     title: 'Rewiring Benefits',
     verified: '✓',

@@ -90,6 +90,7 @@ export const zh = {
         body: '觉察是第一步。通过小而稳定的改变，降低触发、重建专注，让大脑重新对健康回报产生反应。',
       },
     },
+  },
   benefits: {
     title: '重塑收益',
     verified: '✓',
