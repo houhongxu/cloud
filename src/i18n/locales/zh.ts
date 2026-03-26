@@ -154,4 +154,52 @@ export const zh = {
     hint: '请在上方空白区域签名',
     finish: '完成',
   },
+  plan: {
+    greeting: '嗨，我们为你定制了一份计划。',
+    subtitle: '你的旅程将从这一天开始：',
+    date: '2026 年 5 月 24 日',
+    ratingA11y: '5 星评分',
+    heroTitle: '用 CLOUD 成为更好的自己',
+    heroSubtitle: '更强、更健康、更快乐',
+    tags: {
+      strong: '更强',
+      healthier: '更健康',
+      happier: '更快乐',
+    },
+    sections: {
+      conquer: {
+        title: '战胜自己',
+        note: '啊！原来我的社交焦虑有一部分来自对色情问题的羞耻感……我再也不想体验那种难受了。',
+        illustrationA11y: '插画占位',
+      },
+      restore: {
+        title: '找回自然的性驱力',
+        illustrationA11y: '插画占位',
+      },
+      control: {
+        title: '重新掌控',
+        note: '我曾经开始害怕和女友亲密，因为我习惯了色情内容的刺激。但当我停下来后，我们的亲密更好了，关系也更稳固。',
+        illustrationA11y: '插画占位',
+      },
+    },
+    bullets: {
+      buildUnbreakableSelfControl: '建立更强的自控力',
+      becomeMoreAttractive: '更自信、更有吸引力',
+      control: '提升自我价值感',
+      restoreDrive: '让大脑恢复到更平衡的状态',
+      reduceDesensitization: '逆转“去敏感”带来的影响',
+      enjoyHealthyIntimacy: '享受健康、满足的亲密',
+      learnToReject: '学会拒绝有害的渴望',
+      cravings: '找回专注与动力',
+      regainFocus: '重新感受真实的快乐与满足',
+      reduceSadness: '减少低落与沮丧感',
+    },
+    discount: {
+      title: '限时优惠！',
+      subtitle: 'CLOUD Premium 立减 60%',
+      coupon: '优惠码：QUITTR',
+      claim: '立即领取',
+    },
+    ctaPrimary: '成为 CLOUD 用户',
+  },
 };

@@ -154,4 +154,52 @@ export const en = {
     hint: 'Draw on the open space above',
     finish: 'Finish',
   },
+  plan: {
+    greeting: "hi, we've made you a custom plan.",
+    subtitle: "You'll start your journey on",
+    date: 'May 24, 2026',
+    ratingA11y: '5 stars',
+    heroTitle: 'Become the best version of yourself with CLOUD',
+    heroSubtitle: 'Strong, Healthier, Happier',
+    tags: {
+      strong: 'Strong',
+      healthier: 'Healthier',
+      happier: 'Happier',
+    },
+    sections: {
+      conquer: {
+        title: 'Conquer yourself',
+        note: "Ah! This time my social anxiety has just because I was secretly ashamed of my porn problem... never want to feel that much again.",
+        illustrationA11y: 'Illustration placeholder',
+      },
+      restore: {
+        title: 'Restore your natural sex drive',
+        illustrationA11y: 'Illustration placeholder',
+      },
+      control: {
+        title: 'Take back control',
+        note: "I had started to dread having sex with my girlfriend because I was so used to the porn. But our sex is so good life made our relationship much stronger.",
+        illustrationA11y: 'Illustration placeholder',
+      },
+    },
+    bullets: {
+      buildUnbreakableSelfControl: 'Build unbreakable self control',
+      becomeMoreAttractive: 'Become more attractive and confident',
+      control: 'Boost your self-worth',
+      restoreDrive: 'Restore your brain to order',
+      reduceDesensitization: 'Reverse porn induced desensitization',
+      enjoyHealthyIntimacy: 'Enjoy healthy and satisfying intimacy',
+      learnToReject: 'Learn to reject harmful craving',
+      cravings: 'Regain focus and motivation',
+      regainFocus: 'Find real joy and satisfaction',
+      reduceSadness: 'End feelings of sadness',
+    },
+    discount: {
+      title: 'Special Discount!',
+      subtitle: 'Get 60% off on CLOUD premium',
+      coupon: 'CODE: QUITTR',
+      claim: 'Claim Now',
+    },
+    ctaPrimary: 'Become a CLOUD',
+  },
 };
