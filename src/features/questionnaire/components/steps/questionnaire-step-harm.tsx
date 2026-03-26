@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   NativeScrollEvent,
@@ -25,10 +25,15 @@ export const QuestionnaireStepHarm = ({ onContinue }: QuestionnaireStepHarmProps
   const scrollRef = useRef<ScrollView | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const onMomentumScrollEnd = (e: NativeSyntheticEvent<NativeScrollEvent>): void => {
-    const next = harmPageIndexFromOffset(e.nativeEvent.contentOffset.x, width, pages.length);
-    setActiveIndex(next);
-  };
+  const pageWidth = Math.max(1, width);
+
+  const syncIndexFromEvent = useCallback(
+    (e: NativeSyntheticEvent<NativeScrollEvent>): void => {
+      const next = harmPageIndexFromOffset(e.nativeEvent.contentOffset.x, pageWidth, pages.length);
+      setActiveIndex(next);
+    },
+    [pageWidth, pages.length],
+  );
 
   const isLast = activeIndex === pages.length - 1;
 
@@ -43,11 +48,13 @@ export const QuestionnaireStepHarm = ({ onContinue }: QuestionnaireStepHarmProps
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
-        onMomentumScrollEnd={onMomentumScrollEnd}
+        onScroll={syncIndexFromEvent}
+        onScrollEndDrag={syncIndexFromEvent}
+        onMomentumScrollEnd={syncIndexFromEvent}
         scrollEventThrottle={16}
       >
         {pages.map((page) => (
-          <View key={page.id} style={[styles.page, { width, backgroundColor: page.backgroundColor }]}>
+          <View key={page.id} style={[styles.page, { width: pageWidth, backgroundColor: page.backgroundColor }]}>
             <View style={styles.pageInner}>
               <Text style={styles.brand}>CLOUD</Text>
 
@@ -89,7 +96,8 @@ export const QuestionnaireStepHarm = ({ onContinue }: QuestionnaireStepHarmProps
             style={styles.nextButtonGhost}
             onPress={() => {
               const nextIndex = Math.min(activeIndex + 1, pages.length - 1);
-              scrollRef.current?.scrollTo({ x: nextIndex * width, animated: true });
+              setActiveIndex(nextIndex);
+              scrollRef.current?.scrollTo({ x: nextIndex * pageWidth, animated: true });
             }}
             activeOpacity={0.92}
           >
