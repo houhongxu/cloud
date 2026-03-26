@@ -13,7 +13,11 @@ import {
   useWindowDimensions,
 } from 'react-native';
 
-import { benefitScreenIndexFromOffset, getDefaultBenefitScreens } from '../../../../lib/questionnaire-benefits';
+import {
+  benefitScreenIndexFromOffset,
+  getDefaultBenefitScreens,
+  type BenefitQuote,
+} from '../../../../lib/questionnaire-benefits';
 
 type QuestionnaireStepBenefitProps = Readonly<{
   onBack?: () => void;
@@ -23,6 +27,8 @@ type QuestionnaireStepBenefitProps = Readonly<{
 export const QuestionnaireStepBenefit = ({ onBack, onContinue }: QuestionnaireStepBenefitProps) => {
   const { t } = useTranslation();
   const screens = useMemo(() => getDefaultBenefitScreens(), []);
+  const quotesScreen = screens.find((s): s is Extract<(typeof screens)[number], { id: 'quotes' }> => s.id === 'quotes');
+  const quoteItems: readonly BenefitQuote[] = quotesScreen ? quotesScreen.items : [];
   const scrollRef = useRef<ScrollView | null>(null);
   const { height, width } = useWindowDimensions();
   const pageHeight = Math.max(1, height);
@@ -72,26 +78,24 @@ export const QuestionnaireStepBenefit = ({ onBack, onContinue }: QuestionnaireSt
           </View>
 
           <View style={styles.list}>
-            {screens[0].id === 'quotes'
-              ? screens[0].items.map((item) => (
-                  <View key={item.id} style={styles.quoteRow}>
-                    <View style={styles.avatar}>
-                      <Text style={styles.avatarText}>{t(`benefits.avatars.${item.id}`)}</Text>
-                    </View>
+            {quoteItems.map((item) => (
+              <View key={item.id} style={styles.quoteRow}>
+                <View style={styles.avatar}>
+                  <Text style={styles.avatarText}>{t(`benefits.avatars.${item.id}`)}</Text>
+                </View>
 
-                    <View style={styles.quoteCard}>
-                      <View style={styles.quoteHeader}>
-                        <Text style={styles.quoteName}>{t(item.nameKey)}</Text>
-                        <View style={styles.verifiedBadge}>
-                          <Text style={styles.verifiedText}>{t('benefits.verified')}</Text>
-                        </View>
-                      </View>
-                      <Text style={styles.quoteHeadline}>{t(item.headlineKey)}</Text>
-                      <Text style={styles.quoteBody}>{t(item.bodyKey)}</Text>
+                <View style={styles.quoteCard}>
+                  <View style={styles.quoteHeader}>
+                    <Text style={styles.quoteName}>{t(item.nameKey)}</Text>
+                    <View style={styles.verifiedBadge}>
+                      <Text style={styles.verifiedText}>{t('benefits.verified')}</Text>
                     </View>
                   </View>
-                ))
-              : null}
+                  <Text style={styles.quoteHeadline}>{t(item.headlineKey)}</Text>
+                  <Text style={styles.quoteBody}>{t(item.bodyKey)}</Text>
+                </View>
+              </View>
+            ))}
           </View>
 
           <View style={styles.bottomCta}>
