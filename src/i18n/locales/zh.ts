@@ -43,11 +43,13 @@ export const zh = {
     benefit: '可能收益',
     goal: '目标',
     commitment: '承诺',
+    plan: '计划',
     todoSymptom: '第 4 步（症状问卷）暂未实现。',
     todoHarm: '第 5 步（危害）暂未实现。',
     todoBenefit: '第 6 步（收益）暂未实现。',
     todoGoal: '第 7 步（目标）暂未实现。',
     todoCommitment: '第 8 步（承诺）暂未实现。',
+    todoPlan: '第 9 步（计划）暂未实现。',
     ctaContinue: '继续',
   },
   symptoms: {
@@ -144,5 +146,12 @@ export const zh = {
       moreEnergy: '更有精力与动力',
       improvedSelfControl: '更强的自控力',
     },
+  },
+  commitment: {
+    title: '签署你的承诺',
+    subtitle: '最后，对自己承诺：不再观看色情内容。',
+    clear: '清除',
+    hint: '请在上方空白区域签名',
+    finish: '完成',
   },
 };

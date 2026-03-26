@@ -5,7 +5,7 @@ import { create } from 'zustand';
 import type { KeyValueStorage } from './storage/key-value';
 import { createMmkvStorage } from './storage/mmkv';
 
-export type QuestionnaireStep = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+export type QuestionnaireStep = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
 export type QuestionnaireEntryState = Readonly<{
   step: QuestionnaireStep;
@@ -53,7 +53,7 @@ const clampNonNegativeInt = (value: number): number => {
 };
 
 const normalizePersistedStep = (raw: number | undefined): QuestionnaireStep => {
-  if (raw === 2 || raw === 3 || raw === 4 || raw === 5 || raw === 6 || raw === 7 || raw === 8) {
+  if (raw === 2 || raw === 3 || raw === 4 || raw === 5 || raw === 6 || raw === 7 || raw === 8 || raw === 9) {
     return raw;
   }
   return 1;

@@ -9,13 +9,15 @@ type QuestionnaireStepPlaceholderProps = Readonly<{
     | 'questionnaireSteps.harm'
     | 'questionnaireSteps.benefit'
     | 'questionnaireSteps.goal'
-    | 'questionnaireSteps.commitment';
+    | 'questionnaireSteps.commitment'
+    | 'questionnaireSteps.plan';
   descriptionKey:
     | 'questionnaireSteps.todoSymptom'
     | 'questionnaireSteps.todoHarm'
     | 'questionnaireSteps.todoBenefit'
     | 'questionnaireSteps.todoGoal'
-    | 'questionnaireSteps.todoCommitment';
+    | 'questionnaireSteps.todoCommitment'
+    | 'questionnaireSteps.todoPlan';
   primaryCtaKey: 'questionnaireSteps.ctaContinue';
   onPrimaryPress?: () => void;
 }>;

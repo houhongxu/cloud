@@ -43,11 +43,13 @@ export const en = {
     benefit: 'Benefits',
     goal: 'Goal',
     commitment: 'Commitment',
+    plan: 'Plan',
     todoSymptom: 'Step 4 (symptom questionnaire) is not implemented yet.',
     todoHarm: 'Step 5 (harms) is not implemented yet.',
     todoBenefit: 'Step 6 (benefits) is not implemented yet.',
     todoGoal: 'Step 7 (goal) is not implemented yet.',
     todoCommitment: 'Step 8 (commitment) is not implemented yet.',
+    todoPlan: 'Step 9 (plan) is not implemented yet.',
     ctaContinue: 'Continue',
   },
   symptoms: {
@@ -144,5 +146,12 @@ export const en = {
       moreEnergy: 'More energy and motivation',
       improvedSelfControl: 'Improved self-control',
     },
+  },
+  commitment: {
+    title: 'Sign your commitment',
+    subtitle: 'Finally, promise yourself that you will never watch porn again.',
+    clear: 'Clear',
+    hint: 'Draw on the open space above',
+    finish: 'Finish',
   },
 };
