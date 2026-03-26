@@ -91,4 +91,43 @@ export const en = {
       },
     },
   },
+  benefits: {
+    title: 'Rewiring Benefits',
+    verified: '✓',
+    ctaSeeProgress: 'See Progress Chart',
+    ctaContinue: 'Continue',
+    avatars: {
+      huberman: 'AH',
+      bartlett: 'SB',
+      connor: 'C',
+      jack: 'J',
+    },
+    quotes: {
+      huberman: {
+        name: 'Andrew Huberman, Ph.D',
+        headline: 'Drastically improve your life.',
+        body: 'Resetting your dopamine balance by taking a break from highly stimulating content can improve motivation, emotional stability, and everyday pleasure.',
+      },
+      bartlett: {
+        name: 'Steven Bartlett',
+        headline: "There's no good in porn.",
+        body: "Pornography doesn't have an educational role—it's an industry that can drive emptiness and addiction, while profiting from attention and time.",
+      },
+      connor: {
+        name: 'Connor',
+        headline: 'Quitting changed my mindset on the little things.',
+        body: "I was stuck in a loop where everything felt dull. Stepping away helped me care about small wins again and rebuild momentum day by day.",
+      },
+      jack: {
+        name: 'Jack',
+        headline: 'Focus came back.',
+        body: 'After a reset, I noticed better focus and less anxiety. It didn’t happen overnight, but the trend moved in the right direction.',
+      },
+    },
+    progress: {
+      kicker: 'Porn Recovery',
+      imagePlaceholder: 'Chart image placeholder',
+      caption: 'CLOUD helps you quit porn faster than willpower alone.',
+    },
+  },
 };
