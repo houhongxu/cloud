@@ -4,12 +4,18 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 type QuestionnaireStepPlaceholderProps = Readonly<{
-  titleKey: 'questionnaireSteps.symptom' | 'questionnaireSteps.harm' | 'questionnaireSteps.benefit' | 'questionnaireSteps.goal';
+  titleKey:
+    | 'questionnaireSteps.symptom'
+    | 'questionnaireSteps.harm'
+    | 'questionnaireSteps.benefit'
+    | 'questionnaireSteps.goal'
+    | 'questionnaireSteps.commitment';
   descriptionKey:
     | 'questionnaireSteps.todoSymptom'
     | 'questionnaireSteps.todoHarm'
     | 'questionnaireSteps.todoBenefit'
-    | 'questionnaireSteps.todoGoal';
+    | 'questionnaireSteps.todoGoal'
+    | 'questionnaireSteps.todoCommitment';
   primaryCtaKey: 'questionnaireSteps.ctaContinue';
   onPrimaryPress?: () => void;
 }>;

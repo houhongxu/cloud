@@ -13,6 +13,7 @@ import { useQuestionnaireEntryStore } from '../../../lib/questionnaire-entry';
 import { LanguagePickerModal } from './language-picker-modal';
 import { QuestionnaireStepAnalysis } from './steps/questionnaire-step-analysis';
 import { QuestionnaireStepBenefit } from './steps/questionnaire-step-benefit';
+import { QuestionnaireStepCommitment } from './steps/questionnaire-step-commitment';
 import { QuestionnaireStepGoal } from './steps/questionnaire-step-goal';
 import { QuestionnaireStepHarm } from './steps/questionnaire-step-harm';
 import { QuestionnaireStepQuestion } from './steps/questionnaire-step-question';
@@ -86,6 +87,7 @@ export const QuestionnaireFlow = () => {
   const shouldShowFloatingBack = step >= 3;
 
   const onFloatingBack = (): void => {
+    if (step === 8) return setStep(7);
     if (step === 7) return setStep(6);
     if (step === 6) return setStep(5);
     if (step === 5) return setStep(4);
@@ -153,8 +155,23 @@ export const QuestionnaireFlow = () => {
     return (
       <View style={styles.root}>
         <QuestionnaireStepGoal
+          onContinue={() => setStep(8)}
+        />
+        {shouldShowFloatingBack ? (
+          <TouchableOpacity style={styles.floatingBackButton} onPress={onFloatingBack} activeOpacity={0.92}>
+            <Text style={styles.floatingBackText}>{'<'}</Text>
+          </TouchableOpacity>
+        ) : null}
+      </View>
+    );
+  }
+
+  if (step === 8) {
+    return (
+      <View style={styles.root}>
+        <QuestionnaireStepCommitment
           onContinue={() => {
-            console.log('[questionnaire-goal-continue]', { step, currentIndex: safeIndex, answers });
+            console.log('[questionnaire-commitment-continue]', { step, currentIndex: safeIndex, answers });
           }}
         />
         {shouldShowFloatingBack ? (
