@@ -48,4 +48,20 @@ export const en = {
     todoGoal: 'Step 7 (goal) is not implemented yet.',
     ctaContinue: 'Continue',
   },
+  symptoms: {
+    info: 'Excessive porn use can have negative impacts psychologically.',
+    instructions: 'Select any symptoms below:',
+    validation: 'Please select at least one symptom to continue.',
+    cta: 'Reboot my brain',
+    categories: {
+      mental: 'Mental',
+    },
+    items: {
+      unmotivated: 'Feeling unmotivated',
+      lackOfAmbition: 'Lack of ambition to pursue goals',
+      difficultyConcentrating: 'Difficulty concentrating',
+      brainFog: "Poor memory or 'brain fog'",
+      generalAnxiety: 'General anxiety',
+    },
+  },
 };
