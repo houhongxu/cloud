@@ -64,4 +64,31 @@ export const en = {
       generalAnxiety: 'General anxiety',
     },
   },
+  harms: {
+    imagePlaceholder: 'Image',
+    swipeHint: 'Swipe',
+    next: 'Next',
+    pages: {
+      pornIsADrug: {
+        title: 'Porn acts like a drug',
+        body: 'Porn can hijack your reward system. The rush feels “good” in the moment, but it trains your brain to chase the next hit instead of real-life goals.',
+      },
+      dopamineLoop: {
+        title: 'Dopamine can trap you',
+        body: 'Each session teaches your brain a loop: cue → craving → click → relief. Over time, the cue becomes stronger and the pause becomes harder.',
+      },
+      toleranceAndEscalation: {
+        title: 'Tolerance pushes you further',
+        body: 'What used to feel exciting may stop working. Many people escalate to longer sessions or more extreme content to get the same effect.',
+      },
+      desensitization: {
+        title: 'Desensitization dulls real life',
+        body: 'When your brain gets overstimulated, everyday rewards can feel “flat”. This can affect mood, focus, confidence, and intimacy.',
+      },
+      reclaimControl: {
+        title: 'You can take back control',
+        body: 'Awareness is the first step. Small, consistent changes can reduce triggers, rebuild focus, and help your brain respond to healthy rewards again.',
+      },
+    },
+  },
 };

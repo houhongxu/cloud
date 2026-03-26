@@ -64,4 +64,31 @@ export const zh = {
       generalAnxiety: '普遍焦虑',
     },
   },
+  harms: {
+    imagePlaceholder: '图片占位',
+    swipeHint: '左右滑动',
+    next: '下一步',
+    pages: {
+      pornIsADrug: {
+        title: '色情像一种“成瘾性刺激”',
+        body: '它会劫持你的奖赏系统：短期很爽，但会把大脑训练成更容易追逐即时刺激，而不是现实里的目标与成长。',
+      },
+      dopamineLoop: {
+        title: '多巴胺循环让你更难停下',
+        body: '每一次都会强化一条路径：触发 → 渴望 → 点击 → 短暂缓解。久而久之，触发更强、停下来更难。',
+      },
+      toleranceAndEscalation: {
+        title: '耐受会推动升级',
+        body: '原本能带来兴奋的内容逐渐失效，于是更容易变成更久的使用、更频繁的重复，甚至追求更强烈的刺激。',
+      },
+      desensitization: {
+        title: '去敏感会让现实变“无聊”',
+        body: '当大脑长期被过强刺激轰炸，日常回报会显得平淡，可能影响情绪、专注、自信与亲密关系。',
+      },
+      reclaimControl: {
+        title: '你可以把控制权拿回来',
+        body: '觉察是第一步。通过小而稳定的改变，降低触发、重建专注，让大脑重新对健康回报产生反应。',
+      },
+    },
+  },
 };
