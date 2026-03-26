@@ -5,7 +5,7 @@ import { create } from 'zustand';
 import type { KeyValueStorage } from './storage/key-value';
 import { createMmkvStorage } from './storage/mmkv';
 
-export type QuestionnaireStep = 1 | 2;
+export type QuestionnaireStep = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
 export type QuestionnaireEntryState = Readonly<{
   step: QuestionnaireStep;
@@ -52,13 +52,20 @@ const clampNonNegativeInt = (value: number): number => {
   return value;
 };
 
+const normalizePersistedStep = (raw: number | undefined): QuestionnaireStep => {
+  if (raw === 2 || raw === 3 || raw === 4 || raw === 5 || raw === 6 || raw === 7) {
+    return raw;
+  }
+  return 1;
+};
+
 const readInitialState = (storage: KeyValueStorage): QuestionnaireEntryState => {
   const persistedStep = safeParseInt(storage.getString(STORAGE_KEYS.step));
   const persistedIndex = safeParseInt(storage.getString(STORAGE_KEYS.currentIndex));
   const persistedAnswers = safeParseJson<QuestionnaireAnswerMap>(storage.getString(STORAGE_KEYS.answers));
   const persistedFields = safeParseJson<Record<string, string>>(storage.getString(STORAGE_KEYS.fields));
 
-  const step = persistedStep === 2 ? 2 : 1;
+  const step = normalizePersistedStep(persistedStep);
   const currentIndex = clampNonNegativeInt(persistedIndex ?? 0);
 
   return {

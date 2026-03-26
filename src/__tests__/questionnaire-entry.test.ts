@@ -74,4 +74,20 @@ describe('questionnaire entry store', () => {
     useQuestionnaireEntryStore.getState().setStep(2);
     expect(getQuestionnaireEntry().step).toBe(2);
   });
+
+  it('supports analysis step 3', () => {
+    useQuestionnaireEntryStore.getState().setStep(3);
+    expect(getQuestionnaireEntry().step).toBe(3);
+  });
+
+  it('supports steps 4-7 as boundary cases', () => {
+    useQuestionnaireEntryStore.getState().setStep(4);
+    expect(getQuestionnaireEntry().step).toBe(4);
+    useQuestionnaireEntryStore.getState().setStep(5);
+    expect(getQuestionnaireEntry().step).toBe(5);
+    useQuestionnaireEntryStore.getState().setStep(6);
+    expect(getQuestionnaireEntry().step).toBe(6);
+    useQuestionnaireEntryStore.getState().setStep(7);
+    expect(getQuestionnaireEntry().step).toBe(7);
+  });
 });

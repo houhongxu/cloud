@@ -11,13 +11,13 @@ import {
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-type WelcomeSequenceProps = {
+type QuestionnaireStepWelcomeProps = Readonly<{
   onComplete: () => void;
-};
+}>;
 
-export const WelcomeSequence = ({ onComplete }: WelcomeSequenceProps) => {
+export const QuestionnaireStepWelcome = ({ onComplete }: QuestionnaireStepWelcomeProps) => {
   const { t } = useTranslation();
-  const [step, setStep] = useState<0 | 1>(0);
+  const [screenIndex, setScreenIndex] = useState<0 | 1>(0);
   const opacity = useRef(new Animated.Value(1)).current;
   const [reduceMotion, setReduceMotion] = useState(false);
 
@@ -66,7 +66,7 @@ export const WelcomeSequence = ({ onComplete }: WelcomeSequenceProps) => {
   };
 
   const onContinueFromScreen1 = (): void => {
-    runFade(() => setStep(1));
+    runFade(() => setScreenIndex(1));
   };
 
   const onContinueFromScreen2 = (): void => {
@@ -76,7 +76,7 @@ export const WelcomeSequence = ({ onComplete }: WelcomeSequenceProps) => {
   return (
     <LinearGradient colors={['#0f3f6b', '#07133f', '#050b2b']} style={styles.container}>
       <Animated.View style={[styles.screen, { opacity }]}>
-        {step === 0 ? (
+        {screenIndex === 0 ? (
           <View style={styles.screen1}>
             <View style={styles.screen1Top}>
               <Text style={styles.brandText}>{t('welcome.brandName')}</Text>
