@@ -283,4 +283,63 @@ export const en = {
     footerQuote: 'Success is not how high you have climbed, but how you rise after you fall.',
     startJourney: 'Start journey',
   },
+  recovery: {
+    displayName: 'User',
+    ringKicker: 'RECOVERY',
+    percentValue: '{{percent}}%',
+    dayStreak: '{{days}} DAY STREAK',
+    intro:
+      'Today marks the beginning of a powerful journey. This decision is a commitment to a better you. Remember, small steps lead to great changes.',
+    brandLogoA11y: 'Brand logo placeholder',
+    onTrackLabel: "You're on track to:",
+    goalPill: 'Quit Porn by {{date}}',
+    benefits: {
+      iconPlaceholderA11y: 'Benefit icon placeholder',
+      confidence: {
+        title: 'Improved Confidence',
+        body: 'Gain more time and energy for what matters to you, instead of losing it to habits that drain focus.',
+      },
+      selfEsteem: {
+        title: 'Increased Self-Esteem',
+        body: 'Rebuild a positive self-image and feel more in control of your choices day by day.',
+      },
+      mentalClarity: {
+        title: 'Mental Clarity',
+        body: 'Support sharper focus and clearer thinking as your brain gets room to reset.',
+      },
+      libido: {
+        title: 'Increased Libido',
+        body: 'Many people notice a healthier libido and sexual response after several weeks of consistency.',
+      },
+      healthierThoughts: {
+        title: 'Healthier Thoughts',
+        body: 'Develop more realistic expectations about sex, intimacy, and relationships.',
+      },
+      productivity: {
+        title: 'More Time and Productivity',
+        body: 'Reclaim hours for hobbies, work, and people you care about.',
+      },
+      sleep: {
+        title: 'Better Sleep',
+        body: 'Improved sleep quality often shows up within a few weeks of steadier habits.',
+      },
+    },
+    pledge: {
+      cta: 'Click here to pledge',
+      dayA11y: 'Pledge for {{day}}',
+    },
+    achievements: {
+      row: 'Achievements',
+      rowA11y: 'Open achievements',
+    },
+    weekDays: {
+      sun: 'Sun',
+      mon: 'Mon',
+      tue: 'Tue',
+      wed: 'Wed',
+      thu: 'Thu',
+      fri: 'Fri',
+      sat: 'Sat',
+    },
+  },
 };
