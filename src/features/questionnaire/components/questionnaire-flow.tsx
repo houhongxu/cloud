@@ -1,3 +1,5 @@
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
@@ -10,6 +12,7 @@ import {
 } from '../../../lib/questionnaire';
 import { isLastQuestionIndex } from '../../../lib/questionnaire-progress';
 import { useQuestionnaireEntryStore } from '../../../lib/questionnaire-entry';
+import type { RootStackParamList } from '../../../navigation/types';
 import { LanguagePickerModal } from './language-picker-modal';
 import { QuestionnaireStepAnalysis } from './steps/questionnaire-step-analysis';
 import { QuestionnaireStepBenefit } from './steps/questionnaire-step-benefit';
@@ -22,6 +25,7 @@ import { QuestionnaireStepSymptom } from './steps/questionnaire-step-symptom';
 import { QuestionnaireStepWelcome } from './steps/questionnaire-step-welcome';
 
 export const QuestionnaireFlow = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { i18n } = useTranslation();
   const language = i18n.language;
   const selectedLanguage = normalizeLanguage(language);
@@ -188,7 +192,7 @@ export const QuestionnaireFlow = () => {
       <View style={styles.root}>
         <QuestionnaireStepPlan
           onContinue={() => {
-            console.log('[questionnaire-plan-continue]', { step, currentIndex: safeIndex, answers });
+            navigation.replace('MainTabs', { screen: 'Home' });
           }}
         />
         {shouldShowFloatingBack ? (
