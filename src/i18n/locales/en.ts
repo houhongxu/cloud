@@ -342,4 +342,34 @@ export const en = {
       sat: 'Sat',
     },
   },
+  library: {
+    topFeatures: {
+      breathing: 'Breathing Exercise',
+      melius: 'Melius AI Therapist',
+      meditate: 'Meditate',
+      pornResearch: 'Porn Research',
+      iconA11y: '{{label}} icon placeholder',
+    },
+    grid: {
+      articles: 'Articles',
+      leaderboard: 'Leaderboard',
+      learn: 'Learn',
+      podcasts: 'Podcasts',
+    },
+    noises: {
+      title: 'Relaxation Noises',
+      subtitle: 'Helping your heart-rate regulate when urges surge.',
+      rain: 'Rain',
+      ocean: 'Ocean Waves',
+      campfire: 'Campfire',
+      whiteNoise: 'White noise',
+      iconA11y: '{{label}} sound icon placeholder',
+    },
+    leaderboardPreview: {
+      title: 'Leaderboard',
+      loading: 'Loading...',
+      empty: 'No leaderboard data available',
+      rowA11y: 'Open leaderboard',
+    },
+  },
 };
