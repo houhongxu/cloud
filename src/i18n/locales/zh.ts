@@ -342,4 +342,34 @@ export const zh = {
       sat: '六',
     },
   },
+  library: {
+    topFeatures: {
+      breathing: '呼吸练习',
+      melius: 'Melius AI 咨询师',
+      meditate: '冥想',
+      pornResearch: '危害研究',
+      iconA11y: '{{label}} 图标占位',
+    },
+    grid: {
+      articles: '文章',
+      leaderboard: '排行榜',
+      learn: '学习',
+      podcasts: '播客',
+    },
+    noises: {
+      title: '放松白噪音',
+      subtitle: '在冲动来袭时帮助心率平稳下来。',
+      rain: '雨声',
+      ocean: '海浪',
+      campfire: '篝火',
+      whiteNoise: '白噪音',
+      iconA11y: '{{label}} 音效图标占位',
+    },
+    leaderboardPreview: {
+      title: '排行榜',
+      loading: '加载中…',
+      empty: '暂无排行榜数据',
+      rowA11y: '打开排行榜',
+    },
+  },
 };
