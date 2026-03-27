@@ -202,4 +202,85 @@ export const zh = {
     },
     ctaPrimary: '成为 CLOUD 用户',
   },
+  tabs: {
+    home: '首页',
+    recovery: '恢复',
+    library: '资料库',
+    community: '社区',
+    user: '我的',
+    placeholderBody: '此功能即将上线，敬请期待。',
+  },
+  home: {
+    headerCloudA11y: '云端与同步',
+    headerTrophyA11y: '成就',
+    journeyHint: '开始你的旅程！',
+    timerMinutes: '{{m}} 分钟',
+    timerSeconds: '{{s}} 秒',
+    quick: {
+      pledge: '承诺',
+      meditate: '冥想',
+      reset: '重置',
+      more: '更多',
+    },
+    progress: {
+      brainTitle: '大脑重塑',
+      brainMeta: '{{current}}/100',
+      challengeTitle: '28 天挑战',
+      challengeMeta: '{{current}}/28',
+    },
+    todo: {
+      title: '待办',
+      notifications: {
+        title: '开启通知',
+        desc: '在关键时刻收到提醒，帮助你坚持。',
+      },
+      tree: {
+        title: '种下生命树',
+        desc: '用你的坚持浇灌成长记录。',
+      },
+      community: {
+        title: '加入社区',
+        desc: '与同伴互助，一起走得更远。',
+      },
+      blocker: {
+        title: '启用内容拦截',
+        desc: '减少触发源，降低冲动。',
+      },
+      help: {
+        title: '帮助他人',
+        desc: '分享经验，互相学习。',
+      },
+    },
+    status: {
+      targetLabel: '预计戒除日期：',
+      targetDate: '2026 年 5 月 24 日',
+      temptedLabel: '复吸冲动：',
+      temptedValue: '暂无',
+    },
+    motivation: {
+      title: '我戒除的原因：',
+      body: '我想成为更好的自己，过更有觉察的生活。',
+      best: '最佳 4 小时 15 分钟',
+      editA11y: '编辑动机',
+    },
+    sections: {
+      main: '主要',
+      mindfulness: '正念',
+    },
+    mainMenu: {
+      melius: 'Melius AI',
+      reason: '改变原因',
+      chat: '聊天',
+      learn: '学习',
+      achievements: '成就',
+    },
+    mindfulnessMenu: {
+      sideEffects: '副作用',
+      motivation: '动机',
+      breath: '呼吸练习',
+      stories: '成功故事',
+    },
+    footerQuote: '成功不在于你爬了多高，而在于你跌倒后能否再次站起。',
+    startJourney: '开始旅程',
+  },
 };

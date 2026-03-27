@@ -202,4 +202,85 @@ export const en = {
     },
     ctaPrimary: 'Become a CLOUD',
   },
+  tabs: {
+    home: 'Home',
+    recovery: 'Recovery',
+    library: 'Library',
+    community: 'Community',
+    user: 'Profile',
+    placeholderBody: 'This section is coming soon.',
+  },
+  home: {
+    headerCloudA11y: 'Cloud sync',
+    headerTrophyA11y: 'Achievements',
+    journeyHint: 'Start your journey!',
+    timerMinutes: '{{m}}m',
+    timerSeconds: '{{s}}s',
+    quick: {
+      pledge: 'Pledge',
+      meditate: 'Meditate',
+      reset: 'Reset',
+      more: 'More',
+    },
+    progress: {
+      brainTitle: 'Brain rewiring',
+      brainMeta: '{{current}}/100',
+      challengeTitle: '28 day challenge',
+      challengeMeta: '{{current}}/28',
+    },
+    todo: {
+      title: 'To-Do',
+      notifications: {
+        title: 'Enable notifications',
+        desc: 'Get timely nudges to stay on track.',
+      },
+      tree: {
+        title: 'Plant life tree',
+        desc: 'Grow a record of your consistency.',
+      },
+      community: {
+        title: 'Join community',
+        desc: 'Connect with peers and support each other.',
+      },
+      blocker: {
+        title: 'Enable content blocker',
+        desc: 'Reduce triggers and protect your focus.',
+      },
+      help: {
+        title: 'Help & learn from others',
+        desc: 'Share experience and learn together.',
+      },
+    },
+    status: {
+      targetLabel: "You're on track to quit by:",
+      targetDate: 'May 24, 2026',
+      temptedLabel: 'Tempted to relapse:',
+      temptedValue: 'Not tempted',
+    },
+    motivation: {
+      title: "I'm quitting because:",
+      body: "I'm quitting because I want to be a better person and live a better life.",
+      best: 'Best 4hr 15m',
+      editA11y: 'Edit motivation',
+    },
+    sections: {
+      main: 'Main',
+      mindfulness: 'Mindfulness',
+    },
+    mainMenu: {
+      melius: 'Melius AI',
+      reason: 'Reason for change',
+      chat: 'Chat',
+      learn: 'Learn',
+      achievements: 'Achievements',
+    },
+    mindfulnessMenu: {
+      sideEffects: 'Side effects',
+      motivation: 'Motivation',
+      breath: 'Breath exercise',
+      stories: 'Success stories',
+    },
+    footerQuote: 'Success is not how high you have climbed, but how you rise after you fall.',
+    startJourney: 'Start journey',
+  },
 };
