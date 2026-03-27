@@ -283,4 +283,63 @@ export const zh = {
     footerQuote: '成功不在于你爬了多高，而在于你跌倒后能否再次站起。',
     startJourney: '开始旅程',
   },
+  recovery: {
+    displayName: '用户',
+    ringKicker: '恢复进度',
+    percentValue: '{{percent}}%',
+    dayStreak: '已连续 {{days}} 天',
+    intro:
+      '今天是重要旅程的起点。这个决定是对更好自己的承诺。请记住：小步积累会带来巨大改变。',
+    brandLogoA11y: '品牌标志占位',
+    onTrackLabel: '你的目标方向：',
+    goalPill: '在 {{date}} 前戒除色情内容',
+    benefits: {
+      iconPlaceholderA11y: '收益图标占位',
+      confidence: {
+        title: '更自信',
+        body: '把时间与精力留给真正重要的事，而不是被消耗在让你分心的习惯上。',
+      },
+      selfEsteem: {
+        title: '提升自尊',
+        body: '逐步建立更积极的自我形象，让你对自己的选择更有掌控感。',
+      },
+      mentalClarity: {
+        title: '头脑更清晰',
+        body: '当大脑有机会休整，你会更容易保持专注与清醒的思考。',
+      },
+      libido: {
+        title: '更健康的性驱力',
+        body: '在持续数周后，许多人会感受到更自然、更健康的性欲与反应。',
+      },
+      healthierThoughts: {
+        title: '更健康的想法',
+        body: '对性、亲密与关系形成更现实、更温和的期待。',
+      },
+      productivity: {
+        title: '更多时间与效率',
+        body: '把时间还给爱好、工作与你在乎的人。',
+      },
+      sleep: {
+        title: '更好睡眠',
+        body: '作息更稳定后，睡眠质量往往在几周内逐步改善。',
+      },
+    },
+    pledge: {
+      cta: '点此进行每日承诺',
+      dayA11y: '{{day}} 的承诺',
+    },
+    achievements: {
+      row: '成就',
+      rowA11y: '打开成就',
+    },
+    weekDays: {
+      sun: '日',
+      mon: '一',
+      tue: '二',
+      wed: '三',
+      thu: '四',
+      fri: '五',
+      sat: '六',
+    },
+  },
 };
