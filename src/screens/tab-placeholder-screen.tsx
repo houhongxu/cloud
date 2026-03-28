@@ -4,6 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { color, gradient } from '../theme/design-tokens';
+import { font } from '../theme/typography';
+
 type TabPlaceholderScreenProps = Readonly<{
   titleKey: 'tabs.recovery' | 'tabs.library' | 'tabs.community' | 'tabs.user';
 }>;
@@ -13,8 +16,8 @@ export const TabPlaceholderScreen = ({ titleKey }: TabPlaceholderScreenProps) =>
   const insets = useSafeAreaInsets();
 
   return (
-    <LinearGradient colors={['#050B1C', '#07112a', '#050B1C']} style={styles.container}>
-      <StatusBar style="light" />
+    <LinearGradient colors={[...gradient.screen]} style={styles.container}>
+      <StatusBar style="dark" />
       <View style={[styles.content, { paddingTop: insets.top + 24, paddingBottom: insets.bottom + 24 }]}>
         <Text style={styles.title}>{t(titleKey)}</Text>
         <Text style={styles.body}>{t('tabs.placeholderBody')}</Text>
@@ -34,16 +37,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 22,
-    fontWeight: '900',
+    fontFamily: font.headingBold,
     textAlign: 'center',
   },
   body: {
     marginTop: 12,
-    color: 'rgba(255,255,255,0.62)',
+    color: color.textSecondary,
     fontSize: 14,
-    fontWeight: '700',
+    fontFamily: font.bodySemi,
     textAlign: 'center',
     lineHeight: 20,
   },

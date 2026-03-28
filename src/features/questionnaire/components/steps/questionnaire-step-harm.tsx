@@ -13,6 +13,8 @@ import {
 } from 'react-native';
 
 import { getDefaultHarmPages, harmPageIndexFromOffset } from '../../../../lib/questionnaire-harms';
+import { color, shadow } from '../../../../theme/design-tokens';
+import { font } from '../../../../theme/typography';
 
 type QuestionnaireStepHarmProps = Readonly<{
   onContinue?: () => void;
@@ -39,7 +41,7 @@ export const QuestionnaireStepHarm = ({ onContinue }: QuestionnaireStepHarmProps
 
   return (
     <View style={styles.root}>
-      <StatusBar style="light" />
+      <StatusBar style="dark" />
 
       <ScrollView
         ref={(node) => {
@@ -124,8 +126,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   brand: {
-    color: 'rgba(255,255,255,0.92)',
-    fontWeight: '900',
+    color: color.textMuted,
+    fontFamily: font.bodyBold,
     letterSpacing: 3,
     fontSize: 16,
   },
@@ -142,35 +144,37 @@ const styles = StyleSheet.create({
     width: 160,
     height: 18,
     borderRadius: 9,
-    backgroundColor: 'rgba(0,0,0,0.25)',
+    backgroundColor: 'rgba(76, 29, 149, 0.12)',
   },
   heroPlaceholder: {
     width: 150,
     height: 150,
     borderRadius: 75,
-    backgroundColor: 'rgba(255,255,255,0.18)',
+    backgroundColor: color.surface,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.22)',
+    borderColor: color.border,
     alignItems: 'center',
     justifyContent: 'center',
+    ...shadow.soft,
   },
   heroPlaceholderText: {
-    color: 'rgba(255,255,255,0.92)',
+    color: color.textMuted,
     fontSize: 12,
-    fontWeight: '700',
+    fontFamily: font.bodySemi,
   },
   title: {
     marginTop: 34,
-    color: '#ffffff',
+    color: color.text,
     fontSize: 28,
     lineHeight: 34,
-    fontWeight: '900',
+    fontFamily: font.headingBold,
     textAlign: 'center',
   },
   body: {
     marginTop: 14,
-    color: 'rgba(255,255,255,0.9)',
+    color: color.textSecondary,
     fontSize: 15,
+    fontFamily: font.body,
     lineHeight: 22,
     textAlign: 'center',
     maxWidth: 310,
@@ -195,37 +199,39 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   dotActive: {
-    backgroundColor: 'rgba(255,255,255,0.95)',
+    backgroundColor: color.primary,
   },
   dotInactive: {
-    backgroundColor: 'rgba(255,255,255,0.35)',
+    backgroundColor: color.border,
   },
   nextButton: {
     width: 240,
     height: 54,
     borderRadius: 27,
-    backgroundColor: '#ffffff',
+    backgroundColor: color.cta,
     alignItems: 'center',
     justifyContent: 'center',
+    ...shadow.lifted,
   },
   nextButtonText: {
-    color: '#111827',
+    color: color.ctaText,
     fontSize: 16,
-    fontWeight: '900',
+    fontFamily: font.bodyBold,
   },
   nextButtonGhost: {
     width: 240,
     height: 54,
     borderRadius: 27,
-    backgroundColor: 'rgba(255,255,255,0.2)',
+    backgroundColor: color.surface,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.35)',
+    borderColor: color.borderStrong,
     alignItems: 'center',
     justifyContent: 'center',
+    ...shadow.soft,
   },
   nextButtonGhostText: {
-    color: 'rgba(255,255,255,0.95)',
+    color: color.text,
     fontSize: 14,
-    fontWeight: '800',
+    fontFamily: font.bodySemi,
   },
 });

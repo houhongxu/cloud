@@ -15,6 +15,8 @@ import {
   getDefaultBenefitScreens,
   type BenefitQuote,
 } from '../../../../lib/questionnaire-benefits';
+import { color, gradient, radius, shadow } from '../../../../theme/design-tokens';
+import { font } from '../../../../theme/typography';
 
 type QuestionnaireStepBenefitProps = Readonly<{
   onBack?: () => void;
@@ -30,8 +32,8 @@ export const QuestionnaireStepBenefit = ({ onBack, onContinue }: QuestionnaireSt
   const [screen, setScreen] = useState<'quotes' | 'progress'>('quotes');
 
   return (
-    <LinearGradient colors={['#020617', '#07112a', '#020617']} style={styles.container}>
-      <StatusBar style="light" />
+    <LinearGradient colors={[...gradient.screen]} style={styles.container}>
+      <StatusBar style="dark" />
 
       {screen === 'quotes' ? (
         <View style={[styles.screen, { width }]}>
@@ -153,17 +155,21 @@ const styles = StyleSheet.create({
     borderRadius: 22,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: color.surface,
+    borderWidth: 1,
+    borderColor: color.borderSubtle,
+    ...shadow.soft,
   },
   headerBackText: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 22,
-    fontWeight: '900',
+    fontFamily: font.headingBold,
     marginTop: -2,
   },
   headerTitle: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 18,
-    fontWeight: '900',
+    fontFamily: font.headingBold,
     letterSpacing: 0.2,
   },
   headerRightSpacer: {
@@ -189,26 +195,28 @@ const styles = StyleSheet.create({
     width: 42,
     height: 42,
     borderRadius: 21,
-    backgroundColor: 'rgba(255,255,255,0.08)',
+    backgroundColor: color.surface,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.16)',
+    borderColor: color.border,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 8,
+    ...shadow.soft,
   },
   avatarText: {
-    color: 'rgba(255,255,255,0.92)',
-    fontWeight: '900',
+    color: color.text,
+    fontFamily: font.bodyBold,
     fontSize: 12,
   },
   quoteCard: {
     flex: 1,
-    borderRadius: 18,
+    borderRadius: radius.lg,
     paddingHorizontal: 16,
     paddingVertical: 14,
-    backgroundColor: 'rgba(14, 38, 94, 0.65)',
+    backgroundColor: color.surface,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.08)',
+    borderColor: color.borderSubtle,
+    ...shadow.card,
   },
   quoteHeader: {
     flexDirection: 'row',
@@ -217,35 +225,36 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   quoteName: {
-    color: 'rgba(255,255,255,0.95)',
+    color: color.text,
     fontSize: 14,
-    fontWeight: '800',
+    fontFamily: font.bodyBold,
   },
   verifiedBadge: {
     height: 20,
     paddingHorizontal: 8,
     borderRadius: 10,
-    backgroundColor: 'rgba(34, 197, 94, 0.2)',
+    backgroundColor: 'rgba(16, 185, 129, 0.15)',
     borderWidth: 1,
-    borderColor: 'rgba(34, 197, 94, 0.35)',
+    borderColor: 'rgba(16, 185, 129, 0.35)',
     alignItems: 'center',
     justifyContent: 'center',
   },
   verifiedText: {
-    color: 'rgba(175, 255, 210, 0.92)',
+    color: color.ctaDark,
     fontSize: 12,
-    fontWeight: '800',
+    fontFamily: font.bodySemi,
   },
   quoteHeadline: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 16,
-    fontWeight: '900',
+    fontFamily: font.headingBold,
     marginBottom: 8,
   },
   quoteBody: {
-    color: 'rgba(255,255,255,0.86)',
+    color: color.textSecondary,
     fontSize: 13,
     lineHeight: 19,
+    fontFamily: font.body,
   },
   bottomCta: {
     position: 'absolute',
@@ -260,57 +269,60 @@ const styles = StyleSheet.create({
     maxWidth: 380,
     height: 56,
     borderRadius: 28,
-    backgroundColor: '#1d4ed8',
+    backgroundColor: color.primary,
     alignItems: 'center',
     justifyContent: 'center',
+    ...shadow.lifted,
   },
   primaryButtonText: {
-    color: '#ffffff',
+    color: color.textOnPrimary,
     fontSize: 16,
-    fontWeight: '900',
+    fontFamily: font.bodyBold,
     letterSpacing: 0.2,
   },
   bigTitle: {
     marginTop: 6,
-    color: '#ffffff',
+    color: color.text,
     fontSize: 36,
-    fontWeight: '900',
+    fontFamily: font.headingBold,
     letterSpacing: 0.2,
     marginBottom: 18,
   },
   chartFrame: {
-    borderRadius: 18,
-    backgroundColor: 'rgba(0,0,0,0.25)',
+    borderRadius: radius.lg,
+    backgroundColor: color.surface,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.12)',
+    borderColor: color.borderSubtle,
     padding: 14,
     marginBottom: 18,
+    ...shadow.soft,
   },
   chartInner: {
     borderRadius: 14,
-    backgroundColor: 'rgba(0,0,0,0.18)',
+    backgroundColor: color.surfaceMuted,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.08)',
+    borderColor: color.borderSubtle,
     height: 240,
     padding: 14,
     justifyContent: 'space-between',
   },
   chartTitle: {
-    color: 'rgba(255,255,255,0.92)',
-    fontWeight: '900',
+    color: color.text,
+    fontFamily: font.headingBold,
     fontSize: 14,
   },
   chartPlaceholder: {
-    color: 'rgba(255,255,255,0.78)',
-    fontWeight: '800',
+    color: color.textMuted,
+    fontFamily: font.bodySemi,
     fontSize: 12,
     textAlign: 'center',
   },
   caption: {
     marginTop: 8,
-    color: 'rgba(255,255,255,0.9)',
+    color: color.textSecondary,
     fontSize: 15,
     lineHeight: 22,
+    fontFamily: font.body,
     textAlign: 'center',
     paddingHorizontal: 14,
   },

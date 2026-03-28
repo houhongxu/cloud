@@ -3,10 +3,11 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 
 import { LibraryScreenBody } from '../features/library/components/library-screen-body';
+import { gradient } from '../theme/design-tokens';
 
 export const LibraryScreen = () => (
-  <LinearGradient colors={['#0a0a23', '#1a0f2e', '#0a0a23']} style={styles.root}>
-    <StatusBar style="light" />
+  <LinearGradient colors={[...gradient.screenCool]} style={styles.root}>
+    <StatusBar style="dark" />
     <View style={styles.layer}>
       <LibraryScreenBody />
     </View>

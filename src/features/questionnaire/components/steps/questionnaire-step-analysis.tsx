@@ -1,14 +1,16 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { StatusBar } from 'expo-status-bar';
+import { useTranslation } from 'react-i18next';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { BackHandler, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useTranslation } from 'react-i18next';
 
-import { CalculatingProgressPanel } from '../calculating-progress-panel';
 import {
   analysisDeltaPercent,
   generateMockQuestionnaireAnalysis,
 } from '../../../../lib/mock-questionnaire-analysis';
+import { color, gradient, shadow } from '../../../../theme/design-tokens';
+import { font } from '../../../../theme/typography';
+import { CalculatingProgressPanel } from '../calculating-progress-panel';
 
 type QuestionnaireStepAnalysisProps = Readonly<{
   onCheckSymptoms?: () => void;
@@ -37,8 +39,8 @@ export const QuestionnaireStepAnalysis = ({ onCheckSymptoms }: QuestionnaireStep
   }, [phase]);
 
   return (
-    <LinearGradient colors={['#06123a', '#07113f', '#050b2b']} style={styles.container}>
-      <StatusBar style="light" />
+    <LinearGradient colors={[...gradient.screen]} style={styles.container}>
+      <StatusBar style="dark" />
       {phase === 'calculating' ? (
         <CalculatingProgressPanel active onComplete={onProgressComplete} label={t('analysis.calculating')} />
       ) : (
@@ -111,39 +113,39 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   resultTitle: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 26,
     lineHeight: 32,
-    fontWeight: '800',
+    fontFamily: font.headingBold,
     textAlign: 'center',
   },
   checkBubble: {
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: '#2bcf8f',
+    backgroundColor: color.cta,
     alignItems: 'center',
     justifyContent: 'center',
   },
   checkMark: {
-    color: '#ffffff',
+    color: color.ctaText,
     fontSize: 20,
-    fontWeight: '900',
+    fontFamily: font.bodyBold,
     marginTop: -1,
   },
   subtitle: {
-    color: 'rgba(255, 255, 255, 0.88)',
+    color: color.textSecondary,
     fontSize: 16,
     lineHeight: 22,
-    fontWeight: '500',
+    fontFamily: font.body,
     textAlign: 'center',
     marginBottom: 6,
   },
   headline: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 20,
     lineHeight: 28,
-    fontWeight: '800',
+    fontFamily: font.headingSemi,
     textAlign: 'center',
     paddingHorizontal: 8,
     marginTop: 4,
@@ -172,7 +174,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 14,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
-    backgroundColor: '#ff3b4d',
+    backgroundColor: color.analysisNo,
     alignItems: 'center',
     paddingTop: 10,
   },
@@ -183,19 +185,19 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 14,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
-    backgroundColor: '#2bcf8f',
+    backgroundColor: color.analysisYes,
     alignItems: 'center',
     paddingTop: 10,
   },
   barPct: {
-    color: '#ffffff',
+    color: color.ctaText,
     fontSize: 17,
-    fontWeight: '800',
+    fontFamily: font.bodyBold,
   },
   barLabel: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 15,
-    fontWeight: '600',
+    fontFamily: font.bodySemi,
   },
   summaryLine: {
     textAlign: 'center',
@@ -203,19 +205,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   summaryHighlight: {
-    color: '#ff4d5e',
+    color: color.analysisNo,
     fontSize: 17,
-    fontWeight: '800',
+    fontFamily: font.bodyBold,
   },
   summaryRest: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 17,
-    fontWeight: '600',
+    fontFamily: font.bodySemi,
   },
   disclaimer: {
-    color: 'rgba(255, 255, 255, 0.55)',
+    color: color.textMuted,
     fontSize: 12,
     lineHeight: 17,
+    fontFamily: font.body,
     textAlign: 'center',
     paddingHorizontal: 16,
     marginTop: 4,
@@ -226,13 +229,14 @@ const styles = StyleSheet.create({
     maxWidth: 420,
     height: 58,
     borderRadius: 29,
-    backgroundColor: '#1f8fff',
+    backgroundColor: color.primary,
     alignItems: 'center',
     justifyContent: 'center',
+    ...shadow.lifted,
   },
   ctaText: {
-    color: '#ffffff',
+    color: color.textOnPrimary,
     fontSize: 18,
-    fontWeight: '800',
+    fontFamily: font.bodyBold,
   },
 });

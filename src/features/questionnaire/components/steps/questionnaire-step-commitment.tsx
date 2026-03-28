@@ -1,12 +1,14 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { PanResponder, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
 import { useQuestionnaireEntryStore } from '../../../../lib/questionnaire-entry';
 import { isValidSignaturePath, pointsToSvgPath, type SignaturePoint } from '../../../../lib/questionnaire-signature';
+import { color, gradient, radius, shadow } from '../../../../theme/design-tokens';
+import { font } from '../../../../theme/typography';
 
 type QuestionnaireStepCommitmentProps = Readonly<{
   onContinue?: () => void;
@@ -53,7 +55,6 @@ export const QuestionnaireStepCommitment = ({ onContinue }: QuestionnaireStepCom
         setPoints(pointsRef.current);
       },
       onPanResponderRelease: () => {
-        // persist current stroke
         const d = pointsToSvgPath(pointsRef.current);
         if (isValidSignaturePath(d)) {
           setField('commitmentSignatureSvg', d);
@@ -77,8 +78,8 @@ export const QuestionnaireStepCommitment = ({ onContinue }: QuestionnaireStepCom
   };
 
   return (
-    <LinearGradient colors={['#020617', '#07112a', '#020617']} style={styles.container}>
-      <StatusBar style="light" />
+    <LinearGradient colors={[...gradient.screen]} style={styles.container}>
+      <StatusBar style="dark" />
 
       <View style={styles.content}>
         <View style={styles.header}>
@@ -92,7 +93,14 @@ export const QuestionnaireStepCommitment = ({ onContinue }: QuestionnaireStepCom
         <View style={styles.signatureCard} {...panResponder.panHandlers}>
           <Svg width="100%" height="100%">
             {renderedD ? (
-              <Path d={renderedD} stroke="#0b1220" strokeWidth={4} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+              <Path
+                d={renderedD}
+                stroke={color.text}
+                strokeWidth={4}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                fill="none"
+              />
             ) : null}
           </Svg>
         </View>
@@ -141,25 +149,29 @@ const styles = StyleSheet.create({
     height: 44,
   },
   title: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 40,
     lineHeight: 46,
-    fontWeight: '900',
+    fontFamily: font.headingBold,
     marginTop: 10,
   },
   subtitle: {
-    color: 'rgba(255,255,255,0.65)',
+    color: color.textSecondary,
     fontSize: 14,
     lineHeight: 20,
+    fontFamily: font.body,
     marginTop: 14,
     maxWidth: 320,
   },
   signatureCard: {
     marginTop: 26,
     height: 250,
-    borderRadius: 18,
-    backgroundColor: '#ffffff',
+    borderRadius: radius.lg,
+    backgroundColor: color.surface,
     overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: color.borderSubtle,
+    ...shadow.card,
   },
   clearButton: {
     marginTop: 16,
@@ -168,15 +180,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6,
   },
   clearText: {
-    color: 'rgba(255,255,255,0.92)',
+    color: color.primary,
     fontSize: 14,
-    fontWeight: '700',
+    fontFamily: font.bodySemi,
   },
   hint: {
     marginTop: 18,
-    color: 'rgba(255,255,255,0.92)',
+    color: color.text,
     fontSize: 16,
-    fontWeight: '800',
+    fontFamily: font.bodyBold,
     textAlign: 'center',
   },
   finishButton: {
@@ -186,22 +198,23 @@ const styles = StyleSheet.create({
     bottom: 22,
     height: 56,
     borderRadius: 28,
-    backgroundColor: 'rgba(255,255,255,0.18)',
+    backgroundColor: color.cta,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.12)',
+    borderColor: color.ctaDark,
     alignItems: 'center',
     justifyContent: 'center',
+    ...shadow.lifted,
   },
   finishButtonDisabled: {
-    backgroundColor: 'rgba(255,255,255,0.14)',
+    backgroundColor: color.overlay,
+    borderColor: color.borderSubtle,
   },
   finishText: {
-    color: 'rgba(255,255,255,0.92)',
+    color: color.ctaText,
     fontSize: 16,
-    fontWeight: '900',
+    fontFamily: font.bodyBold,
   },
   finishTextDisabled: {
-    color: 'rgba(255,255,255,0.38)',
+    color: color.textMuted,
   },
 });
-

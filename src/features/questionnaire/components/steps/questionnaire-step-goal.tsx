@@ -10,6 +10,8 @@ import {
   toggleSingleGoal,
   type GoalId,
 } from '../../../../lib/questionnaire-goals';
+import { color, gradient, shadow } from '../../../../theme/design-tokens';
+import { font } from '../../../../theme/typography';
 
 type QuestionnaireStepGoalProps = Readonly<{
   onContinue?: () => void;
@@ -33,8 +35,8 @@ export const QuestionnaireStepGoal = ({ onContinue }: QuestionnaireStepGoalProps
   };
 
   return (
-    <LinearGradient colors={['#020617', '#07112a', '#020617']} style={styles.container}>
-      <StatusBar style="light" />
+    <LinearGradient colors={[...gradient.screen]} style={styles.container}>
+      <StatusBar style="dark" />
 
       <View style={styles.content}>
         <View style={styles.header}>
@@ -113,14 +115,15 @@ const styles = StyleSheet.create({
     height: 44,
   },
   headerTitle: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 18,
-    fontWeight: '900',
+    fontFamily: font.headingBold,
   },
   subtitle: {
-    color: 'rgba(255,255,255,0.78)',
+    color: color.textSecondary,
     fontSize: 14,
     lineHeight: 20,
+    fontFamily: font.body,
     textAlign: 'center',
     marginBottom: 18,
     paddingHorizontal: 22,
@@ -137,14 +140,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.08)',
+    borderColor: color.borderSubtle,
+    ...shadow.soft,
   },
   iconCircle: {
     width: 42,
     height: 42,
     borderRadius: 21,
     borderWidth: 2,
-    backgroundColor: 'rgba(0,0,0,0.18)',
+    backgroundColor: color.surface,
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 12,
@@ -154,10 +158,10 @@ const styles = StyleSheet.create({
   },
   goalText: {
     flex: 1,
-    color: '#ffffff',
+    color: color.text,
     fontSize: 15,
     lineHeight: 20,
-    fontWeight: '700',
+    fontFamily: font.bodySemi,
   },
   radioOuter: {
     width: 22,
@@ -173,9 +177,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   errorText: {
-    color: '#ffb4b4',
+    color: color.danger,
     fontSize: 13,
-    fontWeight: '700',
+    fontFamily: font.bodySemi,
     textAlign: 'center',
     marginTop: 10,
   },
@@ -186,13 +190,14 @@ const styles = StyleSheet.create({
     bottom: 22,
     height: 56,
     borderRadius: 28,
-    backgroundColor: '#ffffff',
+    backgroundColor: color.cta,
     alignItems: 'center',
     justifyContent: 'center',
+    ...shadow.lifted,
   },
   primaryButtonText: {
-    color: '#0b1220',
+    color: color.ctaText,
     fontSize: 16,
-    fontWeight: '900',
+    fontFamily: font.bodyBold,
   },
 });

@@ -3,6 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { color, radius, shadow } from '../../../theme/design-tokens';
+import { font } from '../../../theme/typography';
+
 const STARFIELD = [
   { t: 0.04, l: 0.08 },
   { t: 0.12, l: 0.22 },
@@ -28,10 +31,10 @@ const GRID_KEYS = ['articles', 'leaderboard', 'learn', 'podcasts'] as const;
 const NOISE_KEYS = ['rain', 'ocean', 'campfire', 'whiteNoise'] as const;
 
 const GRID_GRADIENTS: Record<(typeof GRID_KEYS)[number], readonly [string, string]> = {
-  articles: ['#f97316', '#fbbf24'],
-  leaderboard: ['#db2777', '#7c3aed'],
-  learn: ['#16a34a', '#15803d'],
-  podcasts: ['#2563eb', '#1d4ed8'],
+  articles: ['#A78BFA', '#6D28D9'],
+  leaderboard: ['#EC4899', '#8B5CF6'],
+  learn: ['#10B981', '#059669'],
+  podcasts: ['#6366F1', '#4F46E5'],
 };
 
 const TreeTriangle = ({ w }: { w: number }) => {
@@ -46,7 +49,7 @@ const TreeTriangle = ({ w }: { w: number }) => {
         borderBottomWidth: h,
         borderLeftColor: 'transparent',
         borderRightColor: 'transparent',
-        borderBottomColor: 'rgba(8, 6, 24, 0.92)',
+        borderBottomColor: 'rgba(76, 29, 149, 0.35)',
       }}
     />
   );
@@ -182,7 +185,7 @@ export const LibraryScreenBody = () => {
       >
         <View style={styles.heroBlock}>
           <LinearGradient
-            colors={['#2e1064', '#312e81', '#1e1b4b']}
+            colors={['#EDE9FE', '#DDD6FE', '#C4B5FD']}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
             style={styles.heroGradient}
@@ -304,7 +307,7 @@ const styles = StyleSheet.create({
     width: 2,
     height: 2,
     borderRadius: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: color.star,
   },
   scroll: {
     paddingHorizontal: 20,
@@ -316,6 +319,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
     overflow: 'hidden',
+    ...shadow.card,
   },
   heroGradient: {
     flex: 1,
@@ -326,7 +330,7 @@ const styles = StyleSheet.create({
     width: 2,
     height: 2,
     borderRadius: 1,
-    backgroundColor: 'rgba(255,255,255,0.85)',
+    backgroundColor: 'rgba(255,255,255,0.9)',
   },
   moonGlow: {
     position: 'absolute',
@@ -335,7 +339,7 @@ const styles = StyleSheet.create({
     width: 110,
     height: 110,
     borderRadius: 55,
-    backgroundColor: 'rgba(255, 248, 220, 0.14)',
+    backgroundColor: 'rgba(255, 248, 220, 0.35)',
   },
   moonDisc: {
     position: 'absolute',
@@ -344,9 +348,9 @@ const styles = StyleSheet.create({
     width: 68,
     height: 68,
     borderRadius: 34,
-    backgroundColor: '#e8e2d4',
-    shadowColor: '#fef3c7',
-    shadowOpacity: 0.45,
+    backgroundColor: '#FEF9C3',
+    shadowColor: color.goldAccent,
+    shadowOpacity: 0.25,
     shadowRadius: 16,
     shadowOffset: { width: 0, height: 0 },
   },
@@ -356,7 +360,7 @@ const styles = StyleSheet.create({
     left: -40,
     right: -40,
     height: 36,
-    backgroundColor: 'rgba(12, 10, 32, 0.55)',
+    backgroundColor: 'rgba(16, 185, 129, 0.22)',
     borderTopLeftRadius: 120,
     borderTopRightRadius: 120,
   },
@@ -376,8 +380,8 @@ const styles = StyleSheet.create({
     top: 16,
     left: 24,
     fontSize: 28,
-    fontWeight: '700',
-    color: '#ffffff',
+    fontFamily: font.headingBold,
+    color: color.text,
     letterSpacing: 0.3,
   },
   topFeaturesRow: {
@@ -396,10 +400,11 @@ const styles = StyleSheet.create({
     height: 56,
     borderRadius: 28,
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: 'rgba(255,255,255,0.55)',
-    backgroundColor: 'rgba(0,0,0,0.35)',
+    borderColor: color.border,
+    backgroundColor: color.surface,
     alignItems: 'center',
     justifyContent: 'center',
+    ...shadow.soft,
   },
   topIconInner: {
     width: 32,
@@ -411,7 +416,7 @@ const styles = StyleSheet.create({
     width: 22,
     height: 2,
     borderRadius: 1,
-    backgroundColor: 'rgba(255,255,255,0.92)',
+    backgroundColor: color.primary,
     marginVertical: 2,
   },
   waveLineMid: {
@@ -430,7 +435,7 @@ const styles = StyleSheet.create({
     width: 10,
     height: 8,
     borderRadius: 2,
-    backgroundColor: 'rgba(255,255,255,0.85)',
+    backgroundColor: color.surface,
     position: 'absolute',
     right: 4,
     bottom: 4,
@@ -439,7 +444,7 @@ const styles = StyleSheet.create({
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: 'rgba(255,255,255,0.9)',
+    backgroundColor: color.primaryDark,
     position: 'absolute',
     top: 4,
   },
@@ -447,7 +452,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 10,
     borderRadius: 4,
-    backgroundColor: 'rgba(255,255,255,0.75)',
+    backgroundColor: color.primary,
     position: 'absolute',
     top: 14,
   },
@@ -458,7 +463,7 @@ const styles = StyleSheet.create({
     width: 8,
     height: 4,
     borderRadius: 2,
-    backgroundColor: 'rgba(255,255,255,0.65)',
+    backgroundColor: color.secondary,
     transform: [{ rotate: '-25deg' }],
   },
   meditLegR: {
@@ -468,7 +473,7 @@ const styles = StyleSheet.create({
     width: 8,
     height: 4,
     borderRadius: 2,
-    backgroundColor: 'rgba(255,255,255,0.65)',
+    backgroundColor: color.secondary,
     transform: [{ rotate: '25deg' }],
   },
   pillShape: {
@@ -476,16 +481,16 @@ const styles = StyleSheet.create({
     height: 24,
     borderRadius: 8,
     borderWidth: 2,
-    borderColor: 'rgba(255,255,255,0.9)',
-    backgroundColor: 'rgba(255,255,255,0.12)',
+    borderColor: color.primary,
+    backgroundColor: color.overlay,
   },
   topFeatureLabel: {
     marginTop: 8,
     fontSize: 10,
     lineHeight: 13,
     textAlign: 'center',
-    color: '#ffffff',
-    fontWeight: '500',
+    color: color.text,
+    fontFamily: font.bodyMedium,
   },
   grid2x2: {
     flexDirection: 'row',
@@ -500,19 +505,23 @@ const styles = StyleSheet.create({
   },
   gridTile: {
     minHeight: 96,
-    borderRadius: 22,
+    borderRadius: radius.xl,
     paddingVertical: 16,
     paddingHorizontal: 14,
     justifyContent: 'center',
     alignItems: 'center',
     overflow: 'hidden',
+    ...shadow.soft,
   },
   gridTileLabel: {
     fontSize: 17,
-    fontWeight: '700',
-    color: '#ffffff',
+    fontFamily: font.headingSemi,
+    color: '#FFFFFF',
     textAlign: 'center',
     zIndex: 2,
+    textShadowColor: 'rgba(76, 29, 149, 0.35)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 3,
   },
   gridCrown: {
     position: 'absolute',
@@ -551,14 +560,15 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 20,
-    fontWeight: '700',
-    color: '#ffffff',
+    fontFamily: font.headingBold,
+    color: color.text,
     marginBottom: 6,
   },
   sectionSubtitle: {
     fontSize: 14,
     lineHeight: 20,
-    color: '#a0a0a0',
+    fontFamily: font.body,
+    color: color.textSecondary,
     marginBottom: 16,
   },
   noiseGrid: {
@@ -578,11 +588,12 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor: 'rgba(255,255,255,0.08)',
+    backgroundColor: color.surface,
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: 'rgba(255,255,255,0.2)',
+    borderColor: color.border,
     alignItems: 'center',
     justifyContent: 'center',
+    ...shadow.soft,
   },
   noiseIconWrap: {
     width: 36,
@@ -689,8 +700,8 @@ const styles = StyleSheet.create({
   noiseLabel: {
     flex: 1,
     fontSize: 14,
-    fontWeight: '600',
-    color: '#ffffff',
+    fontFamily: font.bodySemi,
+    color: color.text,
   },
   lbHeaderRow: {
     flexDirection: 'row',
@@ -700,30 +711,32 @@ const styles = StyleSheet.create({
   },
   lbHeaderTitle: {
     fontSize: 17,
-    fontWeight: '700',
-    color: '#ffffff',
+    fontFamily: font.headingSemi,
+    color: color.text,
   },
   lbChevron: {
-    color: '#ffffff',
-    fontWeight: '700',
+    color: color.text,
+    fontFamily: font.headingSemi,
   },
   lbLoading: {
     fontSize: 14,
-    fontWeight: '600',
-    color: '#60a5fa',
+    fontFamily: font.bodySemi,
+    color: color.primary,
   },
   lbCard: {
-    borderRadius: 14,
+    borderRadius: radius.md,
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: 'rgba(255,255,255,0.22)',
-    backgroundColor: 'rgba(0,0,0,0.25)',
+    borderColor: color.borderSubtle,
+    backgroundColor: color.surface,
     paddingVertical: 28,
     paddingHorizontal: 16,
     alignItems: 'center',
+    ...shadow.card,
   },
   lbEmpty: {
     fontSize: 14,
-    color: '#888888',
+    fontFamily: font.body,
+    color: color.textMuted,
     textAlign: 'center',
   },
 });

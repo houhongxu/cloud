@@ -1,7 +1,10 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+import { color, gradient, shadow } from '../../../../theme/design-tokens';
+import { font } from '../../../../theme/typography';
 
 type QuestionnaireStepPlaceholderProps = Readonly<{
   titleKey:
@@ -31,8 +34,8 @@ export const QuestionnaireStepPlaceholder = ({
   const { t } = useTranslation();
 
   return (
-    <LinearGradient colors={['#06123a', '#07113f', '#050b2b']} style={styles.container}>
-      <StatusBar style="light" />
+    <LinearGradient colors={[...gradient.screen]} style={styles.container}>
+      <StatusBar style="dark" />
       <View style={styles.content}>
         <Text style={styles.title}>{t(titleKey)}</Text>
         <Text style={styles.description}>{t(descriptionKey)}</Text>
@@ -59,17 +62,17 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   title: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 26,
     lineHeight: 32,
-    fontWeight: '800',
+    fontFamily: font.headingBold,
     textAlign: 'center',
   },
   description: {
-    color: 'rgba(255, 255, 255, 0.78)',
+    color: color.textSecondary,
     fontSize: 16,
     lineHeight: 22,
-    fontWeight: '600',
+    fontFamily: font.bodySemi,
     textAlign: 'center',
     paddingHorizontal: 12,
     marginBottom: 18,
@@ -79,13 +82,14 @@ const styles = StyleSheet.create({
     maxWidth: 420,
     height: 58,
     borderRadius: 29,
-    backgroundColor: '#1f8fff',
+    backgroundColor: color.primary,
     alignItems: 'center',
     justifyContent: 'center',
+    ...shadow.lifted,
   },
   primaryButtonText: {
-    color: '#ffffff',
+    color: color.textOnPrimary,
     fontSize: 18,
-    fontWeight: '800',
+    fontFamily: font.bodyBold,
   },
 });

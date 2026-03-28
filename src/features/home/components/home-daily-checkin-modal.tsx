@@ -4,6 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { Modal, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { color, gradient, radius, shadow } from '../../../theme/design-tokens';
+import { font } from '../../../theme/typography';
+
 const COMMUNITY_COUNTER_DEMO = 13_933;
 
 const STAR_LAYOUT = [
@@ -51,7 +54,7 @@ export const HomeDailyCheckinModal = ({ visible, onDismissForToday }: HomeDailyC
       statusBarTranslucent
     >
       <Pressable style={styles.modalRoot} onPress={onDismissForToday}>
-        <LinearGradient colors={['#000b2b', '#020617', '#000b2b']} style={styles.gradient}>
+        <LinearGradient colors={[...gradient.modal]} style={styles.gradient}>
           <View style={styles.stars} pointerEvents="none">
             {STAR_LAYOUT.map((p, i) => (
               <View
@@ -124,7 +127,7 @@ const styles = StyleSheet.create({
     width: 2,
     height: 2,
     borderRadius: 1,
-    backgroundColor: '#e2e8f0',
+    backgroundColor: color.star,
   },
   sheet: {
     flex: 1,
@@ -135,7 +138,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 4,
     borderRadius: 2,
-    backgroundColor: 'rgba(255,255,255,0.35)',
+    backgroundColor: color.borderStrong,
     marginBottom: 18,
   },
   eyesGlyph: {
@@ -143,26 +146,26 @@ const styles = StyleSheet.create({
     marginBottom: 14,
   },
   title: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 22,
     lineHeight: 30,
-    fontWeight: '800',
+    fontFamily: font.headingBold,
     marginBottom: 28,
     maxWidth: 340,
   },
   counter: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 48,
     lineHeight: 54,
-    fontWeight: '900',
+    fontFamily: font.headingBold,
     textAlign: 'center',
     letterSpacing: 0.5,
   },
   counterSuffix: {
     marginTop: 10,
-    color: '#94a3b8',
+    color: color.textSecondary,
     fontSize: 15,
-    fontWeight: '600',
+    fontFamily: font.bodySemi,
     textAlign: 'center',
   },
   flexSpacer: {
@@ -174,33 +177,36 @@ const styles = StyleSheet.create({
     paddingTop: 8,
   },
   buttonNo: {
-    borderRadius: 18,
+    borderRadius: radius.lg,
     paddingVertical: 16,
     paddingHorizontal: 18,
-    backgroundColor: '#002855',
+    backgroundColor: color.surface,
+    borderWidth: 1,
+    borderColor: color.borderStrong,
     alignItems: 'center',
     justifyContent: 'center',
+    ...shadow.card,
   },
   buttonNoText: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 16,
-    fontWeight: '800',
+    fontFamily: font.bodyBold,
     textAlign: 'center',
   },
   buttonYes: {
-    borderRadius: 18,
+    borderRadius: radius.lg,
     paddingVertical: 16,
     paddingHorizontal: 18,
-    backgroundColor: '#2a1212',
+    backgroundColor: color.dangerSurface,
     borderWidth: 2,
-    borderColor: '#b91c1c',
+    borderColor: color.dangerBorder,
     alignItems: 'center',
     justifyContent: 'center',
   },
   buttonYesText: {
-    color: '#991b1b',
+    color: color.dangerMuted,
     fontSize: 16,
-    fontWeight: '800',
+    fontFamily: font.bodyBold,
     textAlign: 'center',
   },
 });
