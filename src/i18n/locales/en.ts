@@ -372,4 +372,22 @@ export const en = {
       rowA11y: 'Open leaderboard',
     },
   },
+  user: {
+    title: 'You',
+    displayName: 'User',
+    progressCard: 'Progress card',
+    logRelapse: 'Log Relapse',
+    range: {
+      today: 'Today',
+      thisWeek: 'This Week',
+      thisMonth: 'This Month',
+    },
+    timeline: {
+      midnight: '00:00',
+      six: '06:00',
+      noon: '12:00',
+      eighteen: '18:00',
+      endOfDay: '23:59',
+    },
+  },
 };

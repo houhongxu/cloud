@@ -372,4 +372,22 @@ export const zh = {
       rowA11y: '打开排行榜',
     },
   },
+  user: {
+    title: '你',
+    displayName: '用户',
+    progressCard: '进度卡片',
+    logRelapse: '记录复吸',
+    range: {
+      today: '今天',
+      thisWeek: '本周',
+      thisMonth: '本月',
+    },
+    timeline: {
+      midnight: '00:00',
+      six: '06:00',
+      noon: '12:00',
+      eighteen: '18:00',
+      endOfDay: '23:59',
+    },
+  },
 };
