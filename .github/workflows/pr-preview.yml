@@ -80,14 +80,19 @@ jobs:
 
       # 在 PR 每次同步并成功部署预览后发送邮件（便于在轮换预览访问用 Secrets 后仍能收到「预览已更新」提醒）。
       # GitHub 不会在「仅修改仓库 Secret」时触发 workflow，因此以预览部署成功为触发点。
-      # 启用方式：仓库 Settings → Secrets and variables → Actions → Variables 新增 PR_PREVIEW_EMAIL_NOTIFY=true；
-      # Secrets：PR_PREVIEW_SMTP_CONNECTION_URL（如 smtp+starttls://user:pass@smtp.example.com:587）、
-      # PR_PREVIEW_NOTIFY_EMAIL（收件人）、PR_PREVIEW_MAIL_FROM（发件人显示名，需符合 SMTP 要求）。
+      # 启用方式：Actions Variables 设置 PR_PREVIEW_EMAIL_NOTIFY=true；
+      # Secrets：PR_PREVIEW_SMTP_HOST、PR_PREVIEW_SMTP_USER、PR_PREVIEW_SMTP_PASS、
+      # PR_PREVIEW_NOTIFY_EMAIL、PR_PREVIEW_MAIL_FROM。
+      # QQ 邮箱请用端口 587 + STARTTLS（勿用 smtp://…:465，易出现 Greeting never received）。
       - name: Send preview update email
         if: ${{ vars.PR_PREVIEW_EMAIL_NOTIFY == 'true' && github.event.pull_request.head.repo.full_name == github.repository }}
         uses: dawidd6/action-send-mail@v3
         with:
-          connection_url: ${{ secrets.PR_PREVIEW_SMTP_CONNECTION_URL }}
+          server_address: ${{ secrets.PR_PREVIEW_SMTP_HOST }}
+          server_port: 587
+          secure: false
+          username: ${{ secrets.PR_PREVIEW_SMTP_USER }}
+          password: ${{ secrets.PR_PREVIEW_SMTP_PASS }}
           subject: "[PR 预览] #${{ github.event.pull_request.number }} 已更新 — ${{ github.event.pull_request.title }}"
           to: ${{ secrets.PR_PREVIEW_NOTIFY_EMAIL }}
           from: ${{ secrets.PR_PREVIEW_MAIL_FROM }}
