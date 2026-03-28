@@ -13,6 +13,7 @@
 3. 运行质量门禁（lint/typecheck/test/build）。
 4. 构建 H5 预览并部署到临时环境。
 5. 将预览 URL 回写到 PR（评论或 checks）。
+6. （可选）预览部署成功后发送邮件通知：在仓库 Actions Variables 设置 `PR_PREVIEW_EMAIL_NOTIFY=true`，并配置 SMTP 相关 Secrets（见 `.github/workflows/pr-preview.yml` 内注释）。GitHub 不会在「仅修改仓库 Secret」时单独触发 workflow，因此以「预览部署成功」作为通知时机；每次 PR 同步更新预览后都会发信。
 
 ## 关键约束
 
