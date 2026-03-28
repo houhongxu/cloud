@@ -77,3 +77,32 @@ jobs:
                 body,
               });
             }
+
+      # 在 PR 每次同步并成功部署预览后发送邮件（便于在轮换预览访问用 Secrets 后仍能收到「预览已更新」提醒）。
+      # GitHub 不会在「仅修改仓库 Secret」时触发 workflow，因此以预览部署成功为触发点。
+      # 启用方式：Actions Variables 设置 PR_PREVIEW_EMAIL_NOTIFY=true；
+      # Secrets：PR_PREVIEW_SMTP_HOST、PR_PREVIEW_SMTP_USER、PR_PREVIEW_SMTP_PASS、
+      # PR_PREVIEW_NOTIFY_EMAIL、PR_PREVIEW_MAIL_FROM。
+      # QQ 邮箱请用端口 587 + STARTTLS（勿用 smtp://…:465，易出现 Greeting never received）。
+      - name: Send preview update email
+        if: ${{ vars.PR_PREVIEW_EMAIL_NOTIFY == 'true' && github.event.pull_request.head.repo.full_name == github.repository }}
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: ${{ secrets.PR_PREVIEW_SMTP_HOST }}
+          server_port: 587
+          secure: false
+          username: ${{ secrets.PR_PREVIEW_SMTP_USER }}
+          password: ${{ secrets.PR_PREVIEW_SMTP_PASS }}
+          subject: "[PR 预览] #${{ github.event.pull_request.number }} 已更新 — ${{ github.event.pull_request.title }}"
+          to: ${{ secrets.PR_PREVIEW_NOTIFY_EMAIL }}
+          from: ${{ secrets.PR_PREVIEW_MAIL_FROM }}
+          html_body: |
+            <p>PR H5 预览已成功重新部署。</p>
+            <ul>
+              <li>PR：<a href="${{ github.event.pull_request.html_url }}">#${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}</a></li>
+              <li>分支：<code>${{ github.head_ref }}</code></li>
+              <li>提交：<code>${{ github.sha }}</code></li>
+              <li>触发者：@${{ github.actor }}</li>
+              <li>预览地址：<a href="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/pr-${{ github.event.pull_request.number }}/?v=${{ github.sha }}">打开 H5 预览</a></li>
+            </ul>
+            <p>若你刚在仓库里更新了预览相关 Secrets（访问口令等），本次部署已使用最新配置；请用邮件中的链接验收。</p>
