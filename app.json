@@ -2,7 +2,7 @@
   "expo": {
     "name": "Cloud MVP",
     "slug": "cloud-mvp",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "orientation": "portrait",
     "icon": "./assets/icon.jpg",
     "userInterfaceStyle": "dark",
