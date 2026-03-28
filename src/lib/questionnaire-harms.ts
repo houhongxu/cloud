@@ -16,31 +16,31 @@ export const getDefaultHarmPages = (): readonly HarmPage[] => {
   const pages: readonly HarmPage[] = [
     {
       id: 'pornIsADrug',
-      backgroundColor: '#E23B3B',
+      backgroundColor: '#FEE2E2',
       titleKey: 'harms.pages.pornIsADrug.title',
       bodyKey: 'harms.pages.pornIsADrug.body',
     },
     {
       id: 'dopamineLoop',
-      backgroundColor: '#9B2CDE',
+      backgroundColor: '#EDE9FE',
       titleKey: 'harms.pages.dopamineLoop.title',
       bodyKey: 'harms.pages.dopamineLoop.body',
     },
     {
       id: 'toleranceAndEscalation',
-      backgroundColor: '#1F6FEB',
+      backgroundColor: '#DBEAFE',
       titleKey: 'harms.pages.toleranceAndEscalation.title',
       bodyKey: 'harms.pages.toleranceAndEscalation.body',
     },
     {
       id: 'desensitization',
-      backgroundColor: '#0F9D7A',
+      backgroundColor: '#D1FAE5',
       titleKey: 'harms.pages.desensitization.title',
       bodyKey: 'harms.pages.desensitization.body',
     },
     {
       id: 'reclaimControl',
-      backgroundColor: '#D97706',
+      backgroundColor: '#FEF3C7',
       titleKey: 'harms.pages.reclaimControl.title',
       bodyKey: 'harms.pages.reclaimControl.body',
     },

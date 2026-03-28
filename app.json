@@ -5,11 +5,11 @@
     "version": "0.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.jpg",
-    "userInterfaceStyle": "dark",
+    "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash-icon.jpg",
       "resizeMode": "contain",
-      "backgroundColor": "#0d1b4c"
+      "backgroundColor": "#FAF5FF"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -20,7 +20,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.jpg",
-        "backgroundColor": "#0d1b4c"
+        "backgroundColor": "#FAF5FF"
       }
     },
     "web": {
@@ -28,6 +28,8 @@
       "output": "single",
       "favicon": "./assets/favicon.jpg"
     },
-    "plugins": []
+    "plugins": [
+      "expo-font"
+    ]
   }
 }

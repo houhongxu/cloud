@@ -3,10 +3,11 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 
 import { RecoveryScreenBody } from '../features/recovery/components/recovery-screen-body';
+import { gradient } from '../theme/design-tokens';
 
 export const RecoveryScreen = () => (
-  <LinearGradient colors={['#050B1C', '#07112a', '#050B1C']} style={styles.root}>
-    <StatusBar style="light" />
+  <LinearGradient colors={[...gradient.screen]} style={styles.root}>
+    <StatusBar style="dark" />
     <View style={styles.layer}>
       <RecoveryScreenBody />
     </View>

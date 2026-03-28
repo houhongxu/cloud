@@ -6,6 +6,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { HomeDailyCheckinModal } from '../features/home/components/home-daily-checkin-modal';
 import { useHomeDailyCheckinModal } from '../features/home/hooks/use-home-daily-checkin-modal';
+import { color, gradient, radius, shadow } from '../theme/design-tokens';
+import { font } from '../theme/typography';
 
 const STARFIELD = [
   { t: 0.04, l: 0.08 },
@@ -34,7 +36,16 @@ const TODO_KEYS: readonly TodoKey[] = ['notifications', 'tree', 'community', 'bl
 const MAIN_KEYS = ['melius', 'reason', 'chat', 'learn', 'achievements'] as const;
 const MIND_KEYS = ['sideEffects', 'motivation', 'breath', 'stories'] as const;
 
-const MENU_DOT_COLORS = ['#6366f1', '#22c55e', '#f59e0b', '#ec4899', '#38bdf8', '#a855f7', '#14b8a6', '#f97316'];
+const MENU_DOT_COLORS = [
+  color.primary,
+  color.cta,
+  color.goldAccent,
+  '#EC4899',
+  '#38BDF8',
+  '#A855F7',
+  '#14B8A6',
+  '#F59E0B',
+];
 
 export const HomeScreen = () => {
   const { t } = useTranslation();
@@ -43,8 +54,8 @@ export const HomeScreen = () => {
   const { checkinModalVisible, dismissCheckinModalForToday } = useHomeDailyCheckinModal();
 
   return (
-    <LinearGradient colors={['#050B1C', '#07112a', '#050B1C']} style={styles.container}>
-      <StatusBar style="light" />
+    <LinearGradient colors={[...gradient.screen]} style={styles.container}>
+      <StatusBar style="dark" />
       <View style={styles.starfield} pointerEvents="none">
         {STARFIELD.map((p, i) => (
           <View
@@ -89,7 +100,7 @@ export const HomeScreen = () => {
 
         <View style={styles.hero}>
           <LinearGradient
-            colors={['#c9a227', '#8b7355', '#d4af37', '#6b7280']}
+            colors={[...gradient.heroDisc]}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
             style={styles.heroDisc}
@@ -224,7 +235,7 @@ const styles = StyleSheet.create({
     width: 2,
     height: 2,
     borderRadius: 1,
-    backgroundColor: '#e2e8f0',
+    backgroundColor: color.star,
   },
   scroll: {
     paddingHorizontal: 18,
@@ -235,9 +246,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   brand: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 22,
-    fontWeight: '900',
+    fontFamily: font.headingBold,
     letterSpacing: 0.5,
   },
   headerActions: {
@@ -248,17 +259,18 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: 'rgba(255,255,255,0.08)',
+    backgroundColor: color.surface,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.12)',
+    borderColor: color.border,
     alignItems: 'center',
     justifyContent: 'center',
+    ...shadow.soft,
   },
   headerIconPlaceholder: {
     width: 18,
     height: 18,
     borderRadius: 4,
-    backgroundColor: 'rgba(255,255,255,0.35)',
+    backgroundColor: color.secondary,
   },
   hero: {
     marginTop: 18,
@@ -271,39 +283,40 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.12)',
+    borderColor: color.borderStrong,
+    ...shadow.lifted,
   },
   heroDiscInner: {
     width: 140,
     height: 140,
     borderRadius: 70,
-    backgroundColor: 'rgba(5, 11, 28, 0.35)',
+    backgroundColor: 'rgba(255, 255, 255, 0.55)',
   },
   heroHint: {
     marginTop: 14,
-    color: '#a0a0c0',
+    color: color.textSecondary,
     fontSize: 13,
-    fontWeight: '700',
+    fontFamily: font.bodySemi,
   },
   timerMain: {
     marginTop: 6,
-    color: '#ffffff',
+    color: color.text,
     fontSize: 44,
-    fontWeight: '900',
+    fontFamily: font.headingBold,
   },
   secondsPill: {
     marginTop: 10,
     paddingHorizontal: 14,
     paddingVertical: 6,
-    borderRadius: 999,
-    backgroundColor: 'rgba(99, 102, 241, 0.35)',
+    borderRadius: radius.pill,
+    backgroundColor: color.overlayStrong,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.12)',
+    borderColor: color.border,
   },
   timerSeconds: {
-    color: '#e0e7ff',
+    color: color.primaryDark,
     fontSize: 13,
-    fontWeight: '900',
+    fontFamily: font.bodyBold,
   },
   quickRow: {
     marginTop: 22,
@@ -318,56 +331,58 @@ const styles = StyleSheet.create({
     width: 52,
     height: 52,
     borderRadius: 26,
-    backgroundColor: 'rgba(255,255,255,0.08)',
+    backgroundColor: color.surface,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.12)',
+    borderColor: color.border,
     alignItems: 'center',
     justifyContent: 'center',
+    ...shadow.soft,
   },
   quickCircleInner: {
     width: 22,
     height: 22,
     borderRadius: 11,
-    backgroundColor: 'rgba(255,255,255,0.28)',
+    backgroundColor: color.secondary,
   },
   quickLabel: {
     marginTop: 8,
-    color: '#a0a0c0',
+    color: color.textMuted,
     fontSize: 11,
-    fontWeight: '800',
+    fontFamily: font.bodySemi,
     textAlign: 'center',
   },
   card: {
     marginTop: 16,
-    borderRadius: 16,
+    borderRadius: radius.lg,
     paddingHorizontal: 14,
     paddingVertical: 12,
-    backgroundColor: 'rgba(255,255,255,0.06)',
+    backgroundColor: color.surface,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.10)',
+    borderColor: color.borderSubtle,
+    ...shadow.card,
   },
   cardTitle: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 14,
-    fontWeight: '900',
+    fontFamily: font.headingSemi,
   },
   progressTrack: {
     marginTop: 10,
     height: 6,
     borderRadius: 3,
-    backgroundColor: 'rgba(255,255,255,0.10)',
+    backgroundColor: color.overlay,
     overflow: 'hidden',
   },
   progressFill: {
     height: '100%',
     borderRadius: 3,
-    backgroundColor: '#00e676',
+    backgroundColor: color.cta,
   },
   cardMeta: {
     marginTop: 8,
-    color: '#a0a0c0',
+    color: color.textSecondary,
     fontSize: 12,
-    fontWeight: '700',
+    fontFamily: font.bodySemi,
   },
   sectionHeaderRow: {
     marginTop: 22,
@@ -376,14 +391,14 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   sectionTitle: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 18,
-    fontWeight: '900',
+    fontFamily: font.headingBold,
   },
   sectionGlyph: {
-    color: 'rgba(255,255,255,0.35)',
+    color: color.textMuted,
     fontSize: 14,
-    fontWeight: '900',
+    fontFamily: font.bodyBold,
   },
   todoList: {
     marginTop: 12,
@@ -392,33 +407,34 @@ const styles = StyleSheet.create({
   todoRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 14,
+    borderRadius: radius.md,
     paddingHorizontal: 12,
     paddingVertical: 12,
-    backgroundColor: 'rgba(255,255,255,0.06)',
+    backgroundColor: color.surface,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.10)',
+    borderColor: color.borderSubtle,
+    ...shadow.soft,
   },
   todoIcon: {
     width: 36,
     height: 36,
-    borderRadius: 10,
-    backgroundColor: 'rgba(255,255,255,0.10)',
+    borderRadius: radius.sm,
+    backgroundColor: color.overlay,
   },
   todoTextBlock: {
     flex: 1,
     marginLeft: 10,
   },
   todoTitle: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 14,
-    fontWeight: '900',
+    fontFamily: font.bodyBold,
   },
   todoDesc: {
     marginTop: 4,
-    color: '#a0a0c0',
+    color: color.textSecondary,
     fontSize: 12,
-    fontWeight: '700',
+    fontFamily: font.bodyMedium,
     lineHeight: 16,
   },
   radioOuter: {
@@ -426,7 +442,7 @@ const styles = StyleSheet.create({
     height: 22,
     borderRadius: 11,
     borderWidth: 2,
-    borderColor: 'rgba(255,255,255,0.28)',
+    borderColor: color.borderStrong,
   },
   dualRow: {
     marginTop: 16,
@@ -435,47 +451,49 @@ const styles = StyleSheet.create({
   },
   dualCard: {
     flex: 1,
-    borderRadius: 14,
+    borderRadius: radius.md,
     paddingHorizontal: 12,
     paddingVertical: 12,
-    backgroundColor: 'rgba(255,255,255,0.06)',
+    backgroundColor: color.surface,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.10)',
+    borderColor: color.borderSubtle,
+    ...shadow.soft,
   },
   dualIcon: {
     width: 28,
     height: 28,
     borderRadius: 14,
-    backgroundColor: 'rgba(34, 197, 94, 0.35)',
+    backgroundColor: 'rgba(16, 185, 129, 0.25)',
     marginBottom: 8,
   },
   dualIconWarm: {
-    backgroundColor: 'rgba(249, 115, 22, 0.35)',
+    backgroundColor: 'rgba(217, 119, 6, 0.22)',
   },
   dualLabel: {
-    color: '#a0a0c0',
+    color: color.textMuted,
     fontSize: 11,
-    fontWeight: '800',
+    fontFamily: font.bodySemi,
     lineHeight: 14,
   },
   dualValue: {
     marginTop: 6,
-    color: '#ffffff',
+    color: color.text,
     fontSize: 12,
-    fontWeight: '900',
+    fontFamily: font.bodyBold,
     lineHeight: 16,
   },
   dualValueGreen: {
-    color: '#00e676',
+    color: color.ctaDark,
   },
   quoteCard: {
     marginTop: 16,
-    borderRadius: 16,
+    borderRadius: radius.lg,
     paddingHorizontal: 14,
     paddingVertical: 14,
-    backgroundColor: 'rgba(255,255,255,0.06)',
+    backgroundColor: color.surface,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.10)',
+    borderColor: color.borderSubtle,
+    ...shadow.card,
   },
   quoteTop: {
     flexDirection: 'row',
@@ -483,22 +501,22 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   quoteTitle: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 14,
-    fontWeight: '900',
+    fontFamily: font.headingSemi,
     flex: 1,
     paddingRight: 10,
   },
   quoteEdit: {
-    color: 'rgba(255,255,255,0.72)',
+    color: color.primary,
     fontSize: 18,
-    fontWeight: '800',
+    fontFamily: font.bodyBold,
   },
   quoteBody: {
     marginTop: 10,
-    color: 'rgba(255,255,255,0.82)',
+    color: color.textSecondary,
     fontSize: 13,
-    fontWeight: '700',
+    fontFamily: font.body,
     lineHeight: 18,
   },
   quoteBadgeRow: {
@@ -508,36 +526,38 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   quoteStar: {
-    color: '#ffd56a',
+    color: color.goldAccent,
     fontSize: 14,
-    fontWeight: '900',
+    fontFamily: font.bodyBold,
   },
   quoteBadge: {
-    color: '#a0a0c0',
+    color: color.textMuted,
     fontSize: 12,
-    fontWeight: '800',
+    fontFamily: font.bodySemi,
   },
   menuSectionTitle: {
     marginTop: 22,
-    color: 'rgba(255,255,255,0.86)',
+    color: color.text,
     fontSize: 15,
-    fontWeight: '900',
+    fontFamily: font.headingSemi,
   },
   menuList: {
     marginTop: 10,
-    borderRadius: 14,
+    borderRadius: radius.md,
     overflow: 'hidden',
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.10)',
+    borderColor: color.borderSubtle,
+    backgroundColor: color.surface,
+    ...shadow.soft,
   },
   menuRow: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 12,
     paddingVertical: 12,
-    backgroundColor: 'rgba(255,255,255,0.05)',
+    backgroundColor: color.surface,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: 'rgba(255,255,255,0.08)',
+    borderBottomColor: color.borderSubtle,
   },
   menuDot: {
     width: 10,
@@ -547,21 +567,21 @@ const styles = StyleSheet.create({
   },
   menuLabel: {
     flex: 1,
-    color: '#ffffff',
+    color: color.text,
     fontSize: 14,
-    fontWeight: '800',
+    fontFamily: font.bodySemi,
   },
   menuMore: {
-    color: 'rgba(255,255,255,0.45)',
+    color: color.textMuted,
     fontSize: 16,
-    fontWeight: '900',
+    fontFamily: font.bodyBold,
     letterSpacing: 1,
   },
   footerQuote: {
     marginTop: 20,
-    color: 'rgba(255,255,255,0.55)',
+    color: color.textMuted,
     fontSize: 12,
-    fontWeight: '700',
+    fontFamily: font.body,
     textAlign: 'center',
     lineHeight: 18,
     paddingHorizontal: 8,
@@ -570,20 +590,21 @@ const styles = StyleSheet.create({
     marginTop: 16,
     height: 54,
     borderRadius: 27,
-    backgroundColor: '#00c853',
+    backgroundColor: color.cta,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 10,
+    ...shadow.lifted,
   },
   primaryCtaIcon: {
-    color: '#04120a',
+    color: color.ctaText,
     fontSize: 14,
-    fontWeight: '900',
+    fontFamily: font.bodyBold,
   },
   primaryCtaText: {
-    color: '#04120a',
+    color: color.ctaText,
     fontSize: 16,
-    fontWeight: '900',
+    fontFamily: font.bodyBold,
   },
 });

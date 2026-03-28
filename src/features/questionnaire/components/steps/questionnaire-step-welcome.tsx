@@ -1,4 +1,5 @@
 import { LinearGradient } from 'expo-linear-gradient';
+import { useTranslation } from 'react-i18next';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   AccessibilityInfo,
@@ -9,7 +10,9 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { useTranslation } from 'react-i18next';
+
+import { color, gradient, shadow } from '../../../../theme/design-tokens';
+import { font } from '../../../../theme/typography';
 
 type QuestionnaireStepWelcomeProps = Readonly<{
   onComplete: () => void;
@@ -74,7 +77,7 @@ export const QuestionnaireStepWelcome = ({ onComplete }: QuestionnaireStepWelcom
   };
 
   return (
-    <LinearGradient colors={['#0f3f6b', '#07133f', '#050b2b']} style={styles.container}>
+    <LinearGradient colors={[...gradient.screen]} style={styles.container}>
       <Animated.View style={[styles.screen, { opacity }]}>
         {screenIndex === 0 ? (
           <View style={styles.screen1}>
@@ -116,7 +119,7 @@ export const QuestionnaireStepWelcome = ({ onComplete }: QuestionnaireStepWelcom
 
             <View style={styles.illustrationOuter}>
               <LinearGradient
-                colors={['#0b1f4d', '#050a2a', '#071a3a']}
+                colors={['#EDE9FE', '#DDD6FE', '#C4B5FD']}
                 start={{ x: 0.15, y: 0.1 }}
                 end={{ x: 0.9, y: 0.95 }}
                 style={styles.illustrationInner}
@@ -163,18 +166,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   brandText: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 54,
-    fontWeight: '900',
+    fontFamily: font.headingBold,
     letterSpacing: 4,
   },
   brandReflection: {
     marginTop: -10,
-    color: '#ffffff',
+    color: color.text,
     fontSize: 54,
-    fontWeight: '900',
+    fontFamily: font.headingBold,
     letterSpacing: 4,
-    opacity: 0.18,
+    opacity: 0.14,
     transform: [{ scaleY: -0.72 }],
   },
   screen1Middle: {
@@ -183,18 +186,17 @@ const styles = StyleSheet.create({
     marginTop: -40,
   },
   screen1Title: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 40,
     lineHeight: 46,
-    fontWeight: '800',
+    fontFamily: font.headingBold,
     textAlign: 'center',
   },
   screen1Subtitle: {
-    color: '#ffffff',
-    opacity: 0.92,
+    color: color.textSecondary,
     fontSize: 30,
     lineHeight: 36,
-    fontWeight: '500',
+    fontFamily: font.bodyMedium,
     textAlign: 'center',
   },
   screen1Bottom: {
@@ -208,9 +210,9 @@ const styles = StyleSheet.create({
     opacity: 0.55,
   },
   laurelGlyph: {
-    color: '#cfe6ff',
+    color: color.primary,
     fontSize: 34,
-    fontWeight: '300',
+    fontFamily: font.body,
     marginTop: -2,
   },
   starsRow: {
@@ -218,17 +220,16 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   starGlyph: {
-    color: '#f6d37a',
+    color: color.goldAccent,
     fontSize: 18,
-    fontWeight: '800',
+    fontFamily: font.bodyBold,
     opacity: 0.95,
   },
   publisherText: {
-    color: '#ffffff',
-    opacity: 0.78,
+    color: color.textMuted,
     fontSize: 18,
     letterSpacing: 1,
-    fontWeight: '500',
+    fontFamily: font.bodyMedium,
   },
   primaryCta: {
     marginTop: 6,
@@ -238,13 +239,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 26,
-    backgroundColor: '#ffffff',
+    backgroundColor: color.cta,
+    ...shadow.lifted,
   },
   primaryCtaText: {
-    color: '#0a174f',
+    color: color.ctaText,
     fontSize: 28,
     lineHeight: 32,
-    fontWeight: '800',
+    fontFamily: font.bodyBold,
   },
   screen2: {
     flex: 1,
@@ -255,9 +257,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   screen2Brand: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 30,
-    fontWeight: '900',
+    fontFamily: font.headingBold,
     letterSpacing: 3,
   },
   illustrationOuter: {
@@ -266,7 +268,8 @@ const styles = StyleSheet.create({
     borderRadius: 150,
     overflow: 'hidden',
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.12)',
+    borderColor: color.border,
+    ...shadow.card,
   },
   illustrationInner: {
     flex: 1,
@@ -276,7 +279,7 @@ const styles = StyleSheet.create({
     width: 160,
     height: 160,
     borderRadius: 80,
-    backgroundColor: 'rgba(63, 215, 255, 0.22)',
+    backgroundColor: 'rgba(139, 92, 246, 0.35)',
     top: 40,
     left: 28,
   },
@@ -285,7 +288,7 @@ const styles = StyleSheet.create({
     width: 120,
     height: 120,
     borderRadius: 60,
-    backgroundColor: 'rgba(120, 170, 255, 0.16)',
+    backgroundColor: 'rgba(196, 181, 253, 0.45)',
     bottom: 46,
     right: 34,
   },
@@ -294,7 +297,7 @@ const styles = StyleSheet.create({
     width: 90,
     height: 90,
     borderRadius: 45,
-    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
     top: 110,
     right: 70,
   },
@@ -302,7 +305,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: 220,
     height: 2,
-    backgroundColor: 'rgba(255, 255, 255, 0.12)',
+    backgroundColor: 'rgba(76, 29, 149, 0.15)',
     top: 120,
     left: 40,
     transform: [{ rotate: '-18deg' }],
@@ -311,7 +314,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: 240,
     height: 2,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    backgroundColor: 'rgba(76, 29, 149, 0.12)',
     bottom: 110,
     left: 30,
     transform: [{ rotate: '22deg' }],
@@ -320,7 +323,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: 200,
     height: 2,
-    backgroundColor: 'rgba(63, 215, 255, 0.18)',
+    backgroundColor: 'rgba(139, 92, 246, 0.25)',
     top: 170,
     left: 50,
     transform: [{ rotate: '8deg' }],
@@ -331,18 +334,17 @@ const styles = StyleSheet.create({
     marginTop: -10,
   },
   screen2Title: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 40,
     lineHeight: 46,
-    fontWeight: '800',
+    fontFamily: font.headingBold,
     textAlign: 'center',
   },
   screen2Subtitle: {
-    color: '#ffffff',
-    opacity: 0.9,
+    color: color.textSecondary,
     fontSize: 28,
     lineHeight: 34,
-    fontWeight: '500',
+    fontFamily: font.bodyMedium,
     textAlign: 'center',
   },
   ghostCta: {
@@ -351,16 +353,17 @@ const styles = StyleSheet.create({
     height: 62,
     borderRadius: 31,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.85)',
+    borderColor: color.borderStrong,
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 22,
-    backgroundColor: 'rgba(5, 10, 40, 0.15)',
+    backgroundColor: color.surface,
+    ...shadow.soft,
   },
   ghostCtaText: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 28,
     lineHeight: 32,
-    fontWeight: '800',
+    fontFamily: font.bodyBold,
   },
 });

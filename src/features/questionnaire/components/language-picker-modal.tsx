@@ -3,6 +3,8 @@ import { useMemo } from 'react';
 import { Modal, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import type { SupportedLanguage } from '../../../lib/i18n-language';
+import { color, shadow } from '../../../theme/design-tokens';
+import { font } from '../../../theme/typography';
 
 type LanguagePickerModalProps = Readonly<{
   visible: boolean;
@@ -41,7 +43,7 @@ export const LanguagePickerModal = ({ visible, selected, onClose, onSelect }: La
     <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
       <View style={styles.modalRoot}>
         <Pressable style={styles.backdropPressable} onPress={onClose} />
-        <LinearGradient colors={['rgba(7, 10, 45, 0.92)', 'rgba(5, 8, 30, 0.94)']} style={styles.backdrop}>
+        <LinearGradient colors={['rgba(250, 245, 255, 0.94)', 'rgba(237, 233, 254, 0.97)']} style={styles.backdrop}>
           <View style={styles.starsLayer} pointerEvents="none">
             {stars.map((s) => (
               <View
@@ -111,7 +113,7 @@ const styles = StyleSheet.create({
   },
   star: {
     position: 'absolute',
-    backgroundColor: '#ffffff',
+    backgroundColor: color.star,
   },
   card: {
     width: '100%',
@@ -120,20 +122,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
     paddingTop: 18,
     paddingBottom: 16,
-    backgroundColor: 'rgba(0, 0, 0, 0.62)',
+    backgroundColor: color.surface,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.12)',
-    shadowColor: '#000000',
-    shadowOpacity: 0.28,
-    shadowRadius: 24,
-    shadowOffset: { width: 0, height: 18 },
-    elevation: 10,
+    borderColor: color.borderSubtle,
+    ...shadow.lifted,
   },
   title: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 26,
     lineHeight: 32,
-    fontWeight: '800',
+    fontFamily: font.headingBold,
     textAlign: 'center',
     marginBottom: 14,
   },
@@ -152,13 +150,13 @@ const styles = StyleSheet.create({
   },
   optionRowDefault: {
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.10)',
-    backgroundColor: 'rgba(10, 12, 40, 0.55)',
+    borderColor: color.borderSubtle,
+    backgroundColor: color.surfaceMuted,
   },
   optionRowSelected: {
     borderWidth: 2,
-    borderColor: 'rgba(62, 150, 255, 0.85)',
-    backgroundColor: 'rgba(14, 22, 60, 0.78)',
+    borderColor: color.primary,
+    backgroundColor: color.overlay,
   },
   optionLeft: {
     flexDirection: 'row',
@@ -169,24 +167,24 @@ const styles = StyleSheet.create({
     fontSize: 22,
   },
   optionLabel: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 18,
     lineHeight: 22,
-    fontWeight: '700',
+    fontFamily: font.bodySemi,
   },
   optionRight: {
     minWidth: 22,
     alignItems: 'flex-end',
   },
   check: {
-    color: '#8cc8ff',
+    color: color.primary,
     fontSize: 18,
-    fontWeight: '900',
+    fontFamily: font.bodyBold,
   },
   chevron: {
-    color: 'rgba(255, 255, 255, 0.55)',
+    color: color.textMuted,
     fontSize: 18,
-    fontWeight: '800',
+    fontFamily: font.bodyBold,
     marginTop: -6,
   },
 });

@@ -2,6 +2,9 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Svg, { Circle, Defs, LinearGradient as SvgLinearGradient, Stop } from 'react-native-svg';
 
+import { color, gradient } from '../../../theme/design-tokens';
+import { font } from '../../../theme/typography';
+
 type CalculatingProgressPanelProps = Readonly<{
   active: boolean;
   label: string;
@@ -109,8 +112,8 @@ export const CalculatingProgressPanel = ({ active, label, onComplete }: Calculat
         <Svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
           <Defs>
             <SvgLinearGradient id="ringGradientPanel" x1="0" y1="0" x2="1" y2="1">
-              <Stop offset="0" stopColor="#2af0c3" stopOpacity="1" />
-              <Stop offset="1" stopColor="#2dc8ff" stopOpacity="1" />
+              <Stop offset="0" stopColor={color.secondary} stopOpacity="1" />
+              <Stop offset="1" stopColor={color.primary} stopOpacity="1" />
             </SvgLinearGradient>
           </Defs>
 
@@ -118,7 +121,7 @@ export const CalculatingProgressPanel = ({ active, label, onComplete }: Calculat
             cx={size / 2}
             cy={size / 2}
             r={r}
-            stroke="rgba(255, 255, 255, 0.12)"
+            stroke={gradient.ringTrack}
             strokeWidth={stroke}
             fill="transparent"
             strokeLinecap="round"
@@ -160,7 +163,7 @@ const styles = StyleSheet.create({
   },
   star: {
     position: 'absolute',
-    backgroundColor: '#ffffff',
+    backgroundColor: color.star,
   },
   center: {
     width: 260,
@@ -174,17 +177,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   percentText: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 56,
     lineHeight: 64,
-    fontWeight: '900',
+    fontFamily: font.headingBold,
   },
   label: {
     marginTop: 26,
-    color: '#ffffff',
+    color: color.text,
     fontSize: 38,
     lineHeight: 46,
-    fontWeight: '700',
+    fontFamily: font.headingSemi,
     opacity: 0.92,
   },
 });

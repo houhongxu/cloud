@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { color, shadow } from '../theme/design-tokens';
+import { font } from '../theme/typography';
 import {
   CommunityTabIcon,
   HomeTabIcon,
@@ -56,7 +58,7 @@ export const AppTabBar = ({ state, navigation }: BottomTabBarProps) => {
       <View style={styles.row}>
         {state.routes.map((route, index) => {
           const focused = state.index === index;
-          const color = focused ? '#00E676' : 'rgba(255,255,255,0.42)';
+          const tint = focused ? color.cta : color.textMuted;
           const label = t(tabLabelKey(route.name));
 
           const onPress = (): void => {
@@ -88,8 +90,8 @@ export const AppTabBar = ({ state, navigation }: BottomTabBarProps) => {
               style={styles.item}
               activeOpacity={0.85}
             >
-              <TabGlyph routeName={route.name} color={color} />
-              <Text style={[styles.label, { color }]} numberOfLines={1}>
+              <TabGlyph routeName={route.name} color={tint} />
+              <Text style={[styles.label, { color: tint }]} numberOfLines={1}>
                 {label}
               </Text>
             </TouchableOpacity>
@@ -102,10 +104,11 @@ export const AppTabBar = ({ state, navigation }: BottomTabBarProps) => {
 
 const styles = StyleSheet.create({
   wrap: {
-    backgroundColor: 'rgba(5, 11, 28, 0.94)',
+    backgroundColor: color.surface,
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: 'rgba(255,255,255,0.08)',
+    borderTopColor: color.borderSubtle,
     paddingTop: 8,
+    ...shadow.tabBar,
   },
   row: {
     flexDirection: 'row',
@@ -122,6 +125,6 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 10,
-    fontWeight: '800',
+    fontFamily: font.bodySemi,
   },
 });

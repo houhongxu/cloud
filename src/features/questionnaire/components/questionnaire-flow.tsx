@@ -13,6 +13,8 @@ import {
 import { isLastQuestionIndex } from '../../../lib/questionnaire-progress';
 import { useQuestionnaireEntryStore } from '../../../lib/questionnaire-entry';
 import type { RootStackParamList } from '../../../navigation/types';
+import { color, radius, shadow } from '../../../theme/design-tokens';
+import { font } from '../../../theme/typography';
 import { LanguagePickerModal } from './language-picker-modal';
 import { QuestionnaireStepAnalysis } from './steps/questionnaire-step-analysis';
 import { QuestionnaireStepBenefit } from './steps/questionnaire-step-benefit';
@@ -246,17 +248,18 @@ const styles = StyleSheet.create({
     bottom: 18,
     width: 44,
     height: 44,
-    borderRadius: 22,
+    borderRadius: radius.pill,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(11, 24, 75, 0.7)',
+    backgroundColor: color.surface,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.18)',
+    borderColor: color.border,
+    ...shadow.card,
   },
   floatingBackText: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 22,
     marginTop: -2,
-    fontWeight: '900',
+    fontFamily: font.headingBold,
   },
 });

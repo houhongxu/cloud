@@ -5,6 +5,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Circle, Defs, LinearGradient as SvgLinearGradient, Stop } from 'react-native-svg';
 
 import { recoveryRingStrokeDashoffset } from '../../../lib/recovery-ring';
+import { color, gradient, radius, shadow } from '../../../theme/design-tokens';
+import { font } from '../../../theme/typography';
 
 const STARFIELD = [
   { t: 0.04, l: 0.08 },
@@ -88,15 +90,15 @@ export const RecoveryScreenBody = () => {
             <Svg width={RING_SIZE} height={RING_SIZE} viewBox={`0 0 ${RING_SIZE} ${RING_SIZE}`}>
               <Defs>
                 <SvgLinearGradient id="recoveryRingGrad" x1="0" y1="0" x2="1" y2="1">
-                  <Stop offset="0" stopColor="#a78bfa" stopOpacity="1" />
-                  <Stop offset="1" stopColor="#6366f1" stopOpacity="1" />
+                  <Stop offset="0" stopColor={color.secondary} stopOpacity="1" />
+                  <Stop offset="1" stopColor={color.primary} stopOpacity="1" />
                 </SvgLinearGradient>
               </Defs>
               <Circle
                 cx={RING_SIZE / 2}
                 cy={RING_SIZE / 2}
                 r={r}
-                stroke="rgba(255, 255, 255, 0.12)"
+                stroke={gradient.ringTrack}
                 strokeWidth={RING_STROKE}
                 fill="transparent"
                 strokeLinecap="round"
@@ -127,10 +129,7 @@ export const RecoveryScreenBody = () => {
         <Text style={styles.intro}>{t('recovery.intro')}</Text>
 
         <View style={styles.logoPlaceholder} accessibilityLabel={t('recovery.brandLogoA11y')} accessibilityRole="image">
-          <LinearGradient
-            colors={['rgba(255,255,255,0.14)', 'rgba(255,255,255,0.04)']}
-            style={styles.logoPlaceholderInner}
-          >
+          <LinearGradient colors={[...gradient.logoSheen]} style={styles.logoPlaceholderInner}>
             <Text style={styles.logoPlaceholderText}>{t('welcome.brandName')}</Text>
           </LinearGradient>
         </View>
@@ -206,7 +205,7 @@ const styles = StyleSheet.create({
     width: 2,
     height: 2,
     borderRadius: 1,
-    backgroundColor: '#e2e8f0',
+    backgroundColor: color.star,
   },
   scroll: {
     paddingHorizontal: 18,
@@ -215,16 +214,16 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   screenTitle: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 28,
-    fontWeight: '800',
+    fontFamily: font.headingBold,
     letterSpacing: 0.3,
   },
   displayName: {
     marginTop: 4,
-    color: 'rgba(226, 232, 240, 0.55)',
+    color: color.textMuted,
     fontSize: 15,
-    fontWeight: '500',
+    fontFamily: font.body,
   },
   ringWrap: {
     alignItems: 'center',
@@ -241,30 +240,34 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(30, 27, 60, 0.85)',
+    backgroundColor: color.surface,
+    borderWidth: 1,
+    borderColor: color.borderSubtle,
+    ...shadow.card,
   },
   ringKicker: {
-    color: 'rgba(255, 255, 255, 0.85)',
+    color: color.textSecondary,
     fontSize: 11,
-    fontWeight: '700',
+    fontFamily: font.bodySemi,
     letterSpacing: 1.2,
   },
   ringPercent: {
     marginTop: 6,
-    color: '#ffffff',
+    color: color.text,
     fontSize: 36,
-    fontWeight: '800',
+    fontFamily: font.headingBold,
   },
   ringStreak: {
     marginTop: 6,
-    color: 'rgba(255, 255, 255, 0.8)',
+    color: color.textMuted,
     fontSize: 11,
-    fontWeight: '700',
+    fontFamily: font.bodySemi,
     letterSpacing: 0.8,
   },
   intro: {
-    color: 'rgba(241, 245, 249, 0.92)',
+    color: color.textSecondary,
     fontSize: 15,
+    fontFamily: font.body,
     lineHeight: 22,
     textAlign: 'center',
     marginBottom: 20,
@@ -276,51 +279,55 @@ const styles = StyleSheet.create({
   logoPlaceholderInner: {
     paddingHorizontal: 28,
     paddingVertical: 14,
-    borderRadius: 16,
+    borderRadius: radius.lg,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.12)',
+    borderColor: color.border,
     minWidth: 160,
     alignItems: 'center',
+    ...shadow.soft,
   },
   logoPlaceholderText: {
-    color: '#ffffff',
+    color: color.primaryDark,
     fontSize: 20,
-    fontWeight: '800',
+    fontFamily: font.headingSemi,
     letterSpacing: 2,
   },
   onTrack: {
-    color: 'rgba(248, 250, 252, 0.9)',
+    color: color.text,
     fontSize: 15,
+    fontFamily: font.bodySemi,
     textAlign: 'center',
     marginBottom: 10,
   },
   goalPill: {
     alignSelf: 'center',
-    backgroundColor: 'rgba(30, 58, 95, 0.95)',
+    backgroundColor: color.surface,
     paddingHorizontal: 20,
     paddingVertical: 12,
-    borderRadius: 999,
+    borderRadius: radius.pill,
     marginBottom: 22,
     borderWidth: 1,
-    borderColor: 'rgba(99, 102, 241, 0.35)',
+    borderColor: color.borderStrong,
+    ...shadow.soft,
   },
   goalPillText: {
-    color: '#e2e8f0',
+    color: color.text,
     fontSize: 14,
-    fontWeight: '600',
+    fontFamily: font.bodySemi,
   },
   benefitsCard: {
-    backgroundColor: 'rgba(35, 32, 72, 0.72)',
-    borderRadius: 18,
+    backgroundColor: color.surface,
+    borderRadius: radius.lg,
     paddingVertical: 6,
     paddingHorizontal: 14,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
+    borderColor: color.borderSubtle,
     marginBottom: 24,
+    ...shadow.card,
   },
   benefitDivider: {
     height: StyleSheet.hairlineWidth,
-    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+    backgroundColor: color.borderSubtle,
     marginVertical: 14,
   },
   benefitRow: {
@@ -333,22 +340,23 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 12,
-    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+    backgroundColor: color.overlay,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.12)',
+    borderColor: color.borderSubtle,
   },
   benefitTextCol: {
     flex: 1,
   },
   benefitTitle: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 16,
-    fontWeight: '700',
+    fontFamily: font.headingSemi,
     marginBottom: 6,
   },
   benefitBody: {
-    color: 'rgba(226, 232, 240, 0.78)',
+    color: color.textSecondary,
     fontSize: 14,
+    fontFamily: font.body,
     lineHeight: 20,
   },
   pledgeCta: {
@@ -356,9 +364,9 @@ const styles = StyleSheet.create({
     marginBottom: 14,
   },
   pledgeCtaText: {
-    color: '#ffffff',
+    color: color.primary,
     fontSize: 16,
-    fontWeight: '600',
+    fontFamily: font.bodySemi,
   },
   weekRow: {
     flexDirection: 'row',
@@ -371,48 +379,50 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   weekLabel: {
-    color: 'rgba(226, 232, 240, 0.65)',
+    color: color.textMuted,
     fontSize: 11,
     marginBottom: 8,
-    fontWeight: '600',
+    fontFamily: font.bodySemi,
   },
   weekDot: {
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: 'rgba(15, 23, 42, 0.9)',
+    backgroundColor: color.surfaceMuted,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.12)',
+    borderColor: color.border,
+    ...shadow.soft,
   },
   achievementsRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(30, 27, 60, 0.65)',
-    borderRadius: 16,
+    backgroundColor: color.surface,
+    borderRadius: radius.lg,
     paddingVertical: 14,
     paddingHorizontal: 14,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
+    borderColor: color.borderSubtle,
     gap: 12,
+    ...shadow.card,
   },
   achievementsIcon: {
     width: 36,
     height: 36,
     borderRadius: 10,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    backgroundColor: color.overlay,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.14)',
+    borderColor: color.border,
   },
   achievementsLabel: {
     flex: 1,
-    color: '#ffffff',
+    color: color.text,
     fontSize: 17,
-    fontWeight: '600',
+    fontFamily: font.bodySemi,
   },
   achievementsChevron: {
-    color: 'rgba(226, 232, 240, 0.75)',
+    color: color.textMuted,
     fontSize: 26,
-    fontWeight: '300',
+    fontFamily: font.body,
     marginTop: -2,
   },
 });

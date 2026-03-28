@@ -1,8 +1,8 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { StatusBar } from 'expo-status-bar';
+import { useTranslation } from 'react-i18next';
 import { useMemo, useState } from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useTranslation } from 'react-i18next';
 
 import {
   getDefaultSymptomCategories,
@@ -10,6 +10,8 @@ import {
   toggleSelectedSymptom,
   type SymptomId,
 } from '../../../../lib/questionnaire-symptoms';
+import { color, gradient, radius, shadow } from '../../../../theme/design-tokens';
+import { font } from '../../../../theme/typography';
 
 type QuestionnaireStepSymptomProps = Readonly<{
   onBack?: () => void;
@@ -33,8 +35,8 @@ export const QuestionnaireStepSymptom = ({ onBack, onContinue }: QuestionnaireSt
   };
 
   return (
-    <LinearGradient colors={['#06123a', '#07113f', '#050b2b']} style={styles.container}>
-      <StatusBar style="light" />
+    <LinearGradient colors={[...gradient.screen]} style={styles.container}>
+      <StatusBar style="dark" />
 
       <View style={styles.content}>
         <View style={styles.header}>
@@ -128,17 +130,22 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: color.surface,
+    borderWidth: 1,
+    borderColor: color.borderSubtle,
+    ...shadow.soft,
   },
   backButtonText: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 22,
     marginTop: -2,
+    fontFamily: font.headingBold,
   },
   headerTitle: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 22,
     lineHeight: 28,
-    fontWeight: '800',
+    fontFamily: font.headingBold,
     textAlign: 'center',
   },
   headerRightSpacer: {
@@ -150,37 +157,35 @@ const styles = StyleSheet.create({
     gap: 18,
   },
   infoCard: {
-    backgroundColor: '#e0333b',
-    borderRadius: 18,
+    backgroundColor: color.dangerSurface,
+    borderRadius: radius.lg,
     paddingHorizontal: 18,
     paddingVertical: 16,
-    shadowColor: '#000000',
-    shadowOpacity: 0.18,
-    shadowRadius: 18,
-    shadowOffset: { width: 0, height: 10 },
-    elevation: 6,
+    borderWidth: 1,
+    borderColor: color.dangerBorder,
+    ...shadow.card,
   },
   infoCardText: {
-    color: '#ffffff',
+    color: color.dangerMuted,
     fontSize: 16,
     lineHeight: 22,
-    fontWeight: '700',
+    fontFamily: font.bodySemi,
   },
   instructions: {
-    color: 'rgba(255, 255, 255, 0.9)',
+    color: color.text,
     fontSize: 16,
     lineHeight: 22,
-    fontWeight: '700',
+    fontFamily: font.bodySemi,
     marginTop: 4,
   },
   section: {
     gap: 12,
   },
   sectionTitle: {
-    color: 'rgba(255, 255, 255, 0.9)',
+    color: color.textSecondary,
     fontSize: 18,
     lineHeight: 24,
-    fontWeight: '800',
+    fontFamily: font.headingSemi,
   },
   options: {
     gap: 14,
@@ -189,48 +194,49 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: 'rgba(51, 64, 127, 0.9)',
+    borderColor: color.border,
     borderRadius: 28,
-    backgroundColor: 'rgba(5, 8, 50, 0.75)',
+    backgroundColor: color.surface,
     minHeight: 68,
     paddingHorizontal: 16,
     paddingVertical: 14,
+    ...shadow.soft,
   },
   optionCardSelected: {
-    borderColor: 'rgba(255, 255, 255, 0.38)',
-    backgroundColor: 'rgba(10, 16, 70, 0.72)',
+    borderColor: color.primary,
+    backgroundColor: color.surfaceMuted,
   },
   checkOuter: {
     width: 22,
     height: 22,
     borderRadius: 11,
     borderWidth: 2,
-    borderColor: 'rgba(255, 255, 255, 0.55)',
+    borderColor: color.borderStrong,
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 14,
   },
   checkOuterSelected: {
-    borderColor: '#ffffff',
+    borderColor: color.primary,
   },
   checkInner: {
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: '#ffffff',
+    backgroundColor: color.primary,
   },
   optionText: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 18,
     lineHeight: 24,
-    fontWeight: '700',
+    fontFamily: font.bodySemi,
     flex: 1,
   },
   errorText: {
-    color: '#ff5d6c',
+    color: color.danger,
     fontSize: 14,
     lineHeight: 18,
-    fontWeight: '800',
+    fontFamily: font.bodyBold,
     textAlign: 'center',
     marginTop: 4,
   },
@@ -241,19 +247,15 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     height: 58,
     borderRadius: 29,
-    backgroundColor: '#e0333b',
+    backgroundColor: color.cta,
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: '#000000',
-    shadowOpacity: 0.18,
-    shadowRadius: 18,
-    shadowOffset: { width: 0, height: 12 },
-    elevation: 8,
+    ...shadow.lifted,
   },
   primaryButtonText: {
-    color: '#ffffff',
+    color: color.ctaText,
     fontSize: 18,
-    fontWeight: '900',
+    fontFamily: font.bodyBold,
   },
   floatingBackButton: {
     position: 'absolute',
@@ -264,14 +266,15 @@ const styles = StyleSheet.create({
     borderRadius: 22,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(11, 24, 75, 0.7)',
+    backgroundColor: color.surface,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.18)',
+    borderColor: color.border,
+    ...shadow.card,
   },
   floatingBackText: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 22,
     marginTop: -2,
-    fontWeight: '900',
+    fontFamily: font.headingBold,
   },
 });

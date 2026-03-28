@@ -1,10 +1,12 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { isLastQuestionIndex } from '../../../../lib/questionnaire-progress';
 import type { QuestionnaireQuestion } from '../../../../lib/questionnaire';
+import { color, gradient, shadow } from '../../../../theme/design-tokens';
+import { font } from '../../../../theme/typography';
 
 export type QuestionnaireStepQuestionProps = Readonly<{
   question: QuestionnaireQuestion;
@@ -34,8 +36,8 @@ export const QuestionnaireStepQuestion = ({
   const { t } = useTranslation();
 
   return (
-    <LinearGradient colors={['#06123a', '#07113f', '#050b2b']} style={styles.container}>
-      <StatusBar style="light" />
+    <LinearGradient colors={[...gradient.screen]} style={styles.container}>
+      <StatusBar style="dark" />
       <View style={styles.contentWrapper}>
         <View style={styles.topBar}>
           <TouchableOpacity style={styles.backButton} onPress={onBack} disabled={!onBack}>
@@ -104,58 +106,64 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: color.surface,
+    borderWidth: 1,
+    borderColor: color.borderSubtle,
+    ...shadow.soft,
   },
   backButtonText: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 22,
     marginTop: -2,
+    fontFamily: font.headingBold,
   },
   progressTrack: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    backgroundColor: color.overlay,
     borderRadius: 8,
     height: 8,
     overflow: 'hidden',
   },
   progressFill: {
-    backgroundColor: '#3fd7ff',
+    backgroundColor: color.primary,
   },
   langButton: {
     height: 34,
     minWidth: 64,
     borderRadius: 17,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.2)',
+    borderColor: color.border,
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 10,
-    backgroundColor: 'rgba(11, 24, 75, 0.62)',
+    backgroundColor: color.surface,
+    ...shadow.soft,
   },
   langButtonText: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 14,
-    fontWeight: '700',
+    fontFamily: font.bodySemi,
   },
   questionSection: {
     gap: 18,
     marginTop: 18,
   },
   questionIndex: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 36,
     lineHeight: 44,
     textDecorationLine: 'underline',
-    textDecorationColor: '#ffffff',
+    textDecorationColor: color.primary,
     textDecorationStyle: 'solid',
-    fontWeight: '800',
+    fontFamily: font.headingBold,
     textAlign: 'center',
   },
   questionTitle: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 28,
     lineHeight: 34,
-    fontWeight: '500',
+    fontFamily: font.body,
     textAlign: 'center',
   },
   optionsWrapper: {
@@ -166,31 +174,33 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: 'rgba(51, 64, 127, 0.9)',
+    borderColor: color.border,
     borderRadius: 28,
-    backgroundColor: 'rgba(5, 8, 50, 0.75)',
+    backgroundColor: color.surface,
     minHeight: 78,
     paddingHorizontal: 16,
+    ...shadow.card,
   },
   optionOrderBubble: {
     width: 44,
     height: 44,
     borderRadius: 22,
-    backgroundColor: '#4ed9ff',
+    backgroundColor: color.secondary,
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 14,
   },
   optionOrderText: {
-    color: '#0d1b5b',
+    color: color.primaryDark,
     fontSize: 18,
-    fontWeight: '800',
+    fontFamily: font.bodyBold,
   },
   optionLabel: {
-    color: '#ffffff',
+    color: color.text,
     fontSize: 26,
     lineHeight: 32,
-    fontWeight: '500',
+    fontFamily: font.bodyMedium,
+    flex: 1,
   },
   footer: {
     alignItems: 'center',
@@ -200,11 +210,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   skipText: {
-    color: '#e4ecff',
+    color: color.primary,
     fontSize: 30,
     lineHeight: 36,
     textAlign: 'center',
-    fontWeight: '500',
+    fontFamily: font.bodyMedium,
   },
   completeButton: {
     width: '100%',
@@ -213,17 +223,13 @@ const styles = StyleSheet.create({
     borderRadius: 32,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#ffffff',
-    shadowColor: '#000000',
-    shadowOpacity: 0.18,
-    shadowRadius: 18,
-    shadowOffset: { width: 0, height: 12 },
-    elevation: 8,
+    backgroundColor: color.cta,
+    ...shadow.lifted,
   },
   completeButtonText: {
-    color: '#0b1b4d',
+    color: color.ctaText,
     fontSize: 20,
     lineHeight: 24,
-    fontWeight: '800',
+    fontFamily: font.bodyBold,
   },
 });
