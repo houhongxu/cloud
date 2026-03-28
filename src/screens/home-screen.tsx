@@ -4,6 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { HomeDailyCheckinModal } from '../features/home/components/home-daily-checkin-modal';
+import { useHomeDailyCheckinModal } from '../features/home/hooks/use-home-daily-checkin-modal';
+
 const STARFIELD = [
   { t: 0.04, l: 0.08 },
   { t: 0.12, l: 0.22 },
@@ -37,6 +40,7 @@ export const HomeScreen = () => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const tabBarSpace = 72 + Math.max(insets.bottom, 10);
+  const { checkinModalVisible, dismissCheckinModalForToday } = useHomeDailyCheckinModal();
 
   return (
     <LinearGradient colors={['#050B1C', '#07112a', '#050B1C']} style={styles.container}>
@@ -202,6 +206,8 @@ export const HomeScreen = () => {
           <Text style={styles.primaryCtaText}>{t('home.startJourney')}</Text>
         </TouchableOpacity>
       </ScrollView>
+
+      <HomeDailyCheckinModal visible={checkinModalVisible} onDismissForToday={dismissCheckinModalForToday} />
     </LinearGradient>
   );
 };

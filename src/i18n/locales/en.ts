@@ -282,6 +282,14 @@ export const en = {
     },
     footerQuote: 'Success is not how high you have climbed, but how you rise after you fall.',
     startJourney: 'Start journey',
+    dailyCheckinModal: {
+      title: 'Did you relapse? Let the community know',
+      counterSuffix: 'are still going strong',
+      buttonNo: 'No, still going strong 💪',
+      buttonYes: '⚠️ Yes, I relapsed',
+      handleA11y: 'Sheet handle',
+      iconA11y: 'Eyes icon',
+    },
   },
   recovery: {
     displayName: 'User',
