@@ -282,6 +282,14 @@ export const zh = {
     },
     footerQuote: '成功不在于你爬了多高，而在于你跌倒后能否再次站起。',
     startJourney: '开始旅程',
+    dailyCheckinModal: {
+      title: '今天复吸了吗？告诉社区你的状态',
+      counterSuffix: '人仍在坚持前行',
+      buttonNo: '没有，我还在坚持 💪',
+      buttonYes: '⚠️ 是的，我复吸了',
+      handleA11y: '弹窗拖动手柄',
+      iconA11y: '眼睛图标',
+    },
   },
   recovery: {
     displayName: '用户',
